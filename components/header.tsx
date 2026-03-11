@@ -83,13 +83,17 @@ export function Header() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 border-b transition-all duration-300 ${
+      className={`fixed top-0 left-0 right-0 z-50 border-b transition-all duration-300 overflow-visible ${
         isScrolled
           ? "bg-background/95 backdrop-blur-md border-border"
           : "bg-transparent border-transparent"
       }`}
     >
-      <nav className="relative mx-auto flex max-w-7xl items-center px-6 py-4 lg:px-8">
+      <nav
+        className={`relative mx-auto flex max-w-7xl items-center px-6 lg:px-8 ${
+          isScrolled ? "py-4" : "py-4 lg:py-6"
+        }`}
+      >
         {/* Left: scroll logo (when scrolled) or empty spacer so right column is mirrored */}
         <div className="flex-1 flex items-center min-w-0 justify-start">
           {isScrolled ? (
@@ -99,10 +103,10 @@ export function Header() {
           )}
         </div>
 
-        {/* Center: main logo (desktop) — absolutely centered over the nav for pixel-perfect alignment */}
+        {/* Center: main logo (desktop) — absolutely centered, with top spacing so it doesn't sit flush */}
         {!isScrolled && (
-          <div className="hidden lg:flex absolute left-0 right-0 top-0 bottom-0 items-center justify-center pointer-events-none">
-            <div className="pointer-events-auto">
+          <div className="hidden lg:flex absolute left-0 right-0 top-0 bottom-0 items-center justify-center pt-2 pointer-events-none">
+            <div className="pointer-events-auto mt-1">
               <BrandLogo variant="default" size="lg" align="center" />
             </div>
           </div>
@@ -185,7 +189,7 @@ export function Header() {
 
       {/* Mobile: centered logo when at top (visible only on mobile) */}
       {!isScrolled && (
-        <div className="lg:hidden flex justify-center pb-2 -mt-2">
+        <div className="lg:hidden flex justify-center pt-2 pb-3">
           <BrandLogo variant="default" size="md" align="center" />
         </div>
       )}
