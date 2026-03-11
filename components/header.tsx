@@ -89,20 +89,27 @@ export function Header() {
           : "bg-transparent border-transparent"
       }`}
     >
-      <nav className="mx-auto flex max-w-7xl items-center px-6 py-4 lg:px-8">
-        {/* Left: scroll logo or spacer for center balance */}
+      <nav className="relative mx-auto flex max-w-7xl items-center px-6 py-4 lg:px-8">
+        {/* Left: scroll logo (when scrolled) or empty spacer so right column is mirrored */}
         <div className="flex-1 flex items-center min-w-0 justify-start">
           {isScrolled ? (
             <BrandLogo variant="scroll" size="md" className="shrink-0" />
           ) : (
-            <div className="hidden lg:block w-0 flex-1" aria-hidden />
+            <div className="hidden lg:block flex-1 min-w-0" aria-hidden />
           )}
         </div>
 
-        {/* Center: main logo at top (desktop) */}
+        {/* Center: main logo (desktop) — absolutely centered over the nav for pixel-perfect alignment */}
+        {!isScrolled && (
+          <div className="hidden lg:flex absolute left-0 right-0 top-0 bottom-0 items-center justify-center pointer-events-none">
+            <div className="pointer-events-auto">
+              <BrandLogo variant="default" size="lg" align="center" />
+            </div>
+          </div>
+        )}
+        {/* Center when scrolled: nav links */}
         <div className="hidden lg:flex flex-1 justify-center items-center">
-          {!isScrolled && <BrandLogo variant="default" size="lg" />}
-          {isScrolled && (
+          {isScrolled ? (
             <div className="flex gap-x-8">
               {navigation.map((item) => (
                 <Link
@@ -114,11 +121,13 @@ export function Header() {
                 </Link>
               ))}
             </div>
+          ) : (
+            <div className="flex-1 min-w-0" aria-hidden />
           )}
         </div>
 
         {/* Right: CTA + Language + Mobile menu */}
-        <div className="flex items-center justify-end gap-3 lg:gap-4 flex-1">
+        <div className="flex items-center justify-end gap-3 lg:gap-4 flex-1 min-w-0">
           <LangSwitch />
 
           <div className="hidden lg:block">
@@ -177,7 +186,7 @@ export function Header() {
       {/* Mobile: centered logo when at top (visible only on mobile) */}
       {!isScrolled && (
         <div className="lg:hidden flex justify-center pb-2 -mt-2">
-          <BrandLogo variant="default" size="md" />
+          <BrandLogo variant="default" size="md" align="center" />
         </div>
       )}
     </header>
