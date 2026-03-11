@@ -3,8 +3,36 @@
 import { Button } from "@/components/ui/button"
 import { ArrowRight, Phone, Network, Bot } from "lucide-react"
 import Link from "next/link"
+import { useLanguage } from "@/components/language-provider"
 
 export function Hero() {
+  const { lang } = useLanguage()
+
+  const copy =
+    lang === "es"
+      ? {
+          badge: "Soluciones de IA para tu empresa",
+          title1: "Transformamos tu",
+          title2: " infraestructura ",
+          title3: "tecnológica",
+          subtitle:
+            "Telefonía en la nube, redes empresariales, soporte técnico y soluciones de inteligencia artificial. Todo lo que tu empresa necesita para crecer.",
+          primaryCta: "Solicitar consulta",
+          secondaryCta: "Ver servicios",
+          statLines: ["Líneas activas", "Empresas", "Uptime"],
+        }
+      : {
+          badge: "AI‑powered solutions for your business",
+          title1: "We transform your",
+          title2: " technology ",
+          title3: "infrastructure",
+          subtitle:
+            "Cloud telephony, enterprise networking, managed IT support and AI solutions. Everything your business needs to scale with confidence.",
+          primaryCta: "Request a consultation",
+          secondaryCta: "View services",
+          statLines: ["Active lines", "Companies", "Uptime"],
+        }
+
   return (
     <section id="inicio" className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
       {/* Background gradient */}
@@ -18,33 +46,32 @@ export function Hero() {
           {/* Badge */}
           <div className="mb-8 inline-flex items-center gap-2 rounded-full border border-gold/30 bg-gold/10 px-4 py-2 text-sm text-gold">
             <Bot className="h-4 w-4" />
-            <span>Soluciones de IA para tu empresa</span>
+            <span>{copy.badge}</span>
           </div>
           
           {/* Headline */}
           <h1 className="text-4xl font-bold tracking-tight text-foreground sm:text-6xl lg:text-7xl text-balance">
-            Transformamos tu
-            <span className="text-gold"> infraestructura </span>
-            tecnológica
+            {copy.title1}
+            <span className="text-gold">{copy.title2}</span>
+            {copy.title3}
           </h1>
           
           {/* Subheadline */}
           <p className="mt-6 text-lg leading-8 text-muted-foreground max-w-2xl mx-auto text-pretty">
-            Telefonía en la nube, redes empresariales, soporte técnico y soluciones de inteligencia artificial. 
-            Todo lo que tu empresa necesita para crecer.
+            {copy.subtitle}
           </p>
           
           {/* CTAs */}
           <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
             <Button asChild size="lg" className="bg-gold text-background hover:bg-gold-light w-full sm:w-auto">
               <Link href="/#contacto">
-                Solicitar Consulta
+                {copy.primaryCta}
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
             </Button>
             <Button asChild variant="outline" size="lg" className="border-border text-foreground hover:bg-secondary w-full sm:w-auto">
               <Link href="/#servicios">
-                Ver Servicios
+                {copy.secondaryCta}
               </Link>
             </Button>
           </div>
@@ -56,21 +83,21 @@ export function Hero() {
                 <Phone className="h-6 w-6 text-gold" />
               </div>
               <span className="text-3xl font-bold text-foreground">500+</span>
-              <span className="text-sm text-muted-foreground">Líneas Activas</span>
+              <span className="text-sm text-muted-foreground">{copy.statLines[0]}</span>
             </div>
             <div className="flex flex-col items-center">
               <div className="flex items-center justify-center w-12 h-12 rounded-full bg-gold/10 mb-4">
                 <Network className="h-6 w-6 text-gold" />
               </div>
               <span className="text-3xl font-bold text-foreground">150+</span>
-              <span className="text-sm text-muted-foreground">Empresas</span>
+              <span className="text-sm text-muted-foreground">{copy.statLines[1]}</span>
             </div>
             <div className="flex flex-col items-center">
               <div className="flex items-center justify-center w-12 h-12 rounded-full bg-gold/10 mb-4">
                 <Bot className="h-6 w-6 text-gold" />
               </div>
               <span className="text-3xl font-bold text-foreground">99.9%</span>
-              <span className="text-sm text-muted-foreground">Uptime</span>
+              <span className="text-sm text-muted-foreground">{copy.statLines[2]}</span>
             </div>
           </div>
         </div>

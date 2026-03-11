@@ -12,18 +12,18 @@ type BrandLogoProps = {
 export function BrandLogo({ href = "/", size = "md", className }: BrandLogoProps) {
   const box =
     size === "sm"
-      ? "h-12 w-[180px]"
-      : "h-16 w-[240px] sm:h-20 sm:w-[300px]"
+      ? "h-10 w-[170px]"
+      : "h-12 w-[220px] sm:h-14 sm:w-[260px]"
 
   const inner = (
     <span className={["relative block overflow-hidden", box, className].filter(Boolean).join(" ")}>
       <Image
-        src="/ankla-logo-full.png"
-        alt="ANKLA Group Inc."
+        src="/ankla-logo.png"
+        alt="ANKLA Group"
         fill
         priority
-        className="object-contain [clip-path:inset(0_0_34%_0)]"
-        sizes="300px"
+        className="object-contain"
+        sizes="260px"
       />
     </span>
   )

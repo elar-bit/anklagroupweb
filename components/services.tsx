@@ -8,9 +8,11 @@ import {
 import { cn } from "@/lib/utils"
 import Link from "next/link"
 import { services } from "@/lib/services"
+import { useLanguage } from "@/components/language-provider"
 
 export function Services() {
   const [hoveredId, setHoveredId] = useState<string | null>(null)
+  const { lang } = useLanguage()
 
   return (
     <section id="servicios" className="py-24 sm:py-32 bg-background">
@@ -31,6 +33,7 @@ export function Services() {
           {services.map((service) => {
             const Icon = service.icon
             const isHovered = hoveredId === service.id
+            const locale = service.locales[lang]
             
             return (
               <Link
@@ -62,18 +65,18 @@ export function Services() {
                   
                   {/* Title */}
                   <h3 className="text-xl font-semibold text-foreground mb-1">
-                    {service.title}
+                    {locale.title}
                   </h3>
-                  <p className="text-sm text-gold mb-3">{service.subtitle}</p>
+                  <p className="text-sm text-gold mb-3">{locale.subtitle}</p>
                   
                   {/* Description */}
                   <p className="text-muted-foreground text-sm mb-4">
-                    {service.description}
+                    {locale.intro}
                   </p>
                   
                   {/* Features */}
                   <ul className="space-y-2 mb-4">
-                    {service.features.map((feature, idx) => (
+                    {locale.benefits.slice(0, 4).map((feature, idx) => (
                       <li key={idx} className="flex items-center gap-2 text-sm text-muted-foreground">
                         <Check className="h-4 w-4 text-gold flex-shrink-0" />
                         {feature}

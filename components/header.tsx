@@ -5,24 +5,66 @@ import { Menu } from "lucide-react"
 import { BrandLogo } from "@/components/brand-logo"
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetClose, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet"
+import { useLanguage } from "@/components/language-provider"
 
 const navigation = [
-  { name: "Inicio", href: "/#inicio" },
-  { name: "Servicios", href: "/#servicios" },
-  { name: "Nosotros", href: "/#nosotros" },
-  { name: "Contacto", href: "/#contacto" },
-  { name: "Blog", href: "/blog" },
+  { key: "home", href: "/#inicio" },
+  { key: "services", href: "/#servicios" },
+  { key: "about", href: "/#nosotros" },
+  { key: "contact", href: "/#contacto" },
+  { key: "blog", href: "/blog" },
 ]
 
 export function Header() {
+  const { lang, setLang } = useLanguage()
+
+  const labels: Record<(typeof navigation)[number]["key"], string> =
+    lang === "es"
+      ? {
+          home: "Inicio",
+          services: "Servicios",
+          about: "Nosotros",
+          contact: "Contacto",
+          blog: "Blog",
+        }
+      : {
+          home: "Home",
+          services: "Services",
+          about: "About",
+          contact: "Contact",
+          blog: "Blog",
+        }
+
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border">
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-8">
         <div className="flex lg:flex-1">
           <BrandLogo />
         </div>
-        
-        <div className="flex lg:hidden">
+        <div className="flex items-center gap-3 lg:gap-4">
+          {/* Language switch - desktop */}
+          <div className="hidden sm:flex items-center rounded-full border border-border bg-card px-1 py-0.5 text-xs font-medium">
+            <button
+              type="button"
+              onClick={() => setLang("es")}
+              className={`px-2 py-1 rounded-full transition-colors ${
+                lang === "es" ? "bg-gold text-background" : "text-muted-foreground hover:text-foreground"
+              }`}
+            >
+              ES
+            </button>
+            <button
+              type="button"
+              onClick={() => setLang("en")}
+              className={`px-2 py-1 rounded-full transition-colors ${
+                lang === "en" ? "bg-gold text-background" : "text-muted-foreground hover:text-foreground"
+              }`}
+            >
+              EN
+            </button>
+          </div>
+
+          <div className="flex lg:hidden">
           <Sheet>
             <SheetTrigger asChild>
               <button
@@ -40,14 +82,37 @@ export function Header() {
                 </SheetTitle>
               </SheetHeader>
               <div className="px-4 pb-4">
+                {/* Language switch - mobile */}
+                <div className="mb-4 flex items-center justify-start">
+                  <div className="inline-flex items-center rounded-full border border-border bg-card px-1 py-0.5 text-xs font-medium">
+                    <button
+                      type="button"
+                      onClick={() => setLang("es")}
+                      className={`px-2 py-1 rounded-full transition-colors ${
+                        lang === "es" ? "bg-gold text-background" : "text-muted-foreground hover:text-foreground"
+                      }`}
+                    >
+                      ES
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setLang("en")}
+                      className={`px-2 py-1 rounded-full transition-colors ${
+                        lang === "en" ? "bg-gold text-background" : "text-muted-foreground hover:text-foreground"
+                      }`}
+                    >
+                      EN
+                    </button>
+                  </div>
+                </div>
                 <div className="grid gap-1">
                   {navigation.map((item) => (
-                    <SheetClose asChild key={item.name}>
+                    <SheetClose asChild key={item.key}>
                       <Link
                         href={item.href}
                         className="rounded-lg px-3 py-2 text-base font-medium text-foreground hover:bg-secondary transition-colors"
                       >
-                        {item.name}
+                        {labels[item.key]}
                       </Link>
                     </SheetClose>
                   ))}
@@ -67,18 +132,18 @@ export function Header() {
         <div className="hidden lg:flex lg:gap-x-10">
           {navigation.map((item) => (
             <Link
-              key={item.name}
+              key={item.key}
               href={item.href}
               className="text-sm font-medium text-muted-foreground hover:text-gold transition-colors"
             >
-              {item.name}
+              {labels[item.key]}
             </Link>
           ))}
         </div>
         
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
           <Button asChild className="bg-gold text-background hover:bg-gold-light">
-            <Link href="/#contacto">Contáctanos</Link>
+            <Link href="/#contacto">{lang === "es" ? "Contáctanos" : "Contact us"}</Link>
           </Button>
         </div>
       </nav>
