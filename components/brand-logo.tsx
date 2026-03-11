@@ -5,25 +5,28 @@ import Link from "next/link"
 
 type BrandLogoProps = {
   href?: string | null
-  size?: "sm" | "md"
+  size?: "sm" | "md" | "lg" // Añadimos tamaño lg por si acaso
   className?: string
 }
 
 export function BrandLogo({ href = "/", size = "md", className }: BrandLogoProps) {
+  // Aumentamos los anchos y altos para que el logo destaque más
   const box =
     size === "sm"
-      ? "h-10 w-[170px]"
-      : "h-12 w-[220px] sm:h-14 sm:w-[260px]"
+      ? "h-12 w-[180px]" 
+      : "h-16 w-[280px] sm:h-20 sm:w-[320px]" // Tamaño más imponente para escritorio
 
   const inner = (
-    <span className={["relative block overflow-hidden", box, className].filter(Boolean).join(" ")}>
+    <span className={["relative block", box, className].filter(Boolean).join(" ")}>
       <Image
         src="/ankla-logo.png"
         alt="ANKLA Group"
         fill
         priority
-        className="object-contain"
-        sizes="260px"
+        // "mix-blend-multiply" intenta hacer transparente el blanco (funciona en fondos claros)
+        // "scale-110" lo agranda un poco más dentro del contenedor
+        className="object-contain mix-blend-multiply transform scale-105" 
+        sizes="(max-width: 768px) 200px, 350px"
       />
     </span>
   )
@@ -36,4 +39,3 @@ export function BrandLogo({ href = "/", size = "md", className }: BrandLogoProps
     inner
   )
 }
-
