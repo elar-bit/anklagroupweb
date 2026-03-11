@@ -89,10 +89,10 @@ export function Header() {
           : "bg-transparent border-transparent"
       }`}
     >
-      {/* Nav: when scrolled keep compact; when not scrolled use taller min-height so main logo is never clipped */}
+      {/* Nav: mobile = less padding so logo sits higher; desktop = taller for main logo */}
       <nav
         className={`relative mx-auto flex max-w-7xl items-center px-6 lg:px-8 ${
-          isScrolled ? "py-4" : "min-h-[120px] py-4 lg:min-h-[180px] lg:py-6"
+          isScrolled ? "py-4" : "py-2 min-h-0 lg:min-h-[180px] lg:py-6"
         }`}
       >
         {/* Left: scroll logo (when scrolled) or empty spacer — scroll logo stays visible on mobile */}
@@ -188,9 +188,9 @@ export function Header() {
         </div>
       </nav>
 
-      {/* Mobile: centered logo when at top only — padding so it doesn't touch top edge */}
+      {/* Mobile: centered logo when at top — reduced pt/pb so logo sits higher and doesn't overlap hero */}
       {!isScrolled && (
-        <div className="lg:hidden flex items-center justify-center pt-4 pb-4">
+        <div className="lg:hidden flex items-center justify-center pt-2 pb-2">
           <BrandLogo variant="default" size="md" align="center" />
         </div>
       )}
