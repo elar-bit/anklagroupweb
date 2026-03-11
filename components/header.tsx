@@ -83,7 +83,7 @@ export function Header() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 border-b transition-all duration-300 ${
+      className={`fixed top-0 left-0 right-0 z-[100] border-b transition-all duration-300 ${
         isScrolled
           ? "bg-background/95 backdrop-blur-md border-border"
           : "bg-transparent border-transparent"
@@ -95,8 +95,8 @@ export function Header() {
           isScrolled ? "py-4" : "min-h-[120px] py-4 lg:min-h-[180px] lg:py-6"
         }`}
       >
-        {/* Left: scroll logo (when scrolled) or empty spacer — scroll state unchanged */}
-        <div className="flex-1 flex items-center min-w-0 justify-start">
+        {/* Left: scroll logo (when scrolled) or empty spacer — scroll logo stays visible on mobile */}
+        <div className={`flex-1 flex items-center min-w-0 justify-start ${isScrolled ? "min-w-[140px] lg:min-w-0" : ""}`}>
           {isScrolled ? (
             <BrandLogo variant="scroll" size="md" className="shrink-0" />
           ) : (

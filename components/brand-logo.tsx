@@ -28,13 +28,13 @@ export function BrandLogo({
   const isScroll = variant === "scroll"
   const src = isScroll ? LOGO_SRC.scroll : LOGO_SRC.default
 
-  // Main logo (default) sized for legibility; scroll variant sizes unchanged
+  // Main logo (default) sized for legibility; scroll variant slightly larger on mobile for visibility
   const box =
     size === "sm"
       ? "h-8 w-[120px]"
       : size === "md"
         ? isScroll
-          ? "h-10 w-[160px]"
+          ? "h-11 w-[180px] sm:h-10 sm:w-[160px]"
           : "h-24 w-[400px] sm:h-28 sm:w-[470px]"
         : "h-36 w-[560px] sm:h-44 sm:w-[640px]"
 
