@@ -83,18 +83,19 @@ export function Header() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 border-b transition-all duration-300 overflow-visible ${
+      className={`fixed top-0 left-0 right-0 z-50 border-b transition-all duration-300 ${
         isScrolled
           ? "bg-background/95 backdrop-blur-md border-border"
           : "bg-transparent border-transparent"
       }`}
     >
+      {/* Nav: when scrolled keep compact; when not scrolled use taller min-height so main logo is never clipped */}
       <nav
         className={`relative mx-auto flex max-w-7xl items-center px-6 lg:px-8 ${
-          isScrolled ? "py-4" : "py-4 lg:py-6"
+          isScrolled ? "py-4" : "min-h-[120px] py-4 lg:min-h-[180px] lg:py-6"
         }`}
       >
-        {/* Left: scroll logo (when scrolled) or empty spacer so right column is mirrored */}
+        {/* Left: scroll logo (when scrolled) or empty spacer — scroll state unchanged */}
         <div className="flex-1 flex items-center min-w-0 justify-start">
           {isScrolled ? (
             <BrandLogo variant="scroll" size="md" className="shrink-0" />
@@ -103,10 +104,10 @@ export function Header() {
           )}
         </div>
 
-        {/* Center: main logo (desktop) — absolutely centered, with top spacing so it doesn't sit flush */}
+        {/* Center: main logo (desktop, initial state only) — pt-4/py-4 so it never touches top; flexbox center */}
         {!isScrolled && (
-          <div className="hidden lg:flex absolute left-0 right-0 top-0 bottom-0 items-center justify-center pt-2 pointer-events-none">
-            <div className="pointer-events-auto mt-1">
+          <div className="hidden lg:flex absolute inset-0 items-center justify-center pt-4 pb-4 pointer-events-none">
+            <div className="pointer-events-auto flex items-center justify-center">
               <BrandLogo variant="default" size="lg" align="center" />
             </div>
           </div>
@@ -187,9 +188,9 @@ export function Header() {
         </div>
       </nav>
 
-      {/* Mobile: centered logo when at top (visible only on mobile) */}
+      {/* Mobile: centered logo when at top only — padding so it doesn't touch top edge */}
       {!isScrolled && (
-        <div className="lg:hidden flex justify-center pt-2 pb-3">
+        <div className="lg:hidden flex items-center justify-center pt-4 pb-4">
           <BrandLogo variant="default" size="md" align="center" />
         </div>
       )}

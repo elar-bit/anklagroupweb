@@ -28,7 +28,7 @@ export function BrandLogo({
   const isScroll = variant === "scroll"
   const src = isScroll ? LOGO_SRC.scroll : LOGO_SRC.default
 
-  // Main logo (default) ~18% larger for legibility; scroll variant sizes unchanged
+  // Main logo (default) sized for legibility; scroll variant sizes unchanged
   const box =
     size === "sm"
       ? "h-8 w-[120px]"
@@ -36,7 +36,7 @@ export function BrandLogo({
         ? isScroll
           ? "h-10 w-[160px]"
           : "h-24 w-[400px] sm:h-28 sm:w-[470px]"
-        : "h-32 w-[520px] sm:h-40 sm:w-[590px]"
+        : "h-36 w-[560px] sm:h-44 sm:w-[640px]"
 
   const objectPosition = align === "center" ? "object-center" : "object-left"
 
@@ -50,7 +50,7 @@ export function BrandLogo({
         fill
         priority={!isScroll}
         className={`object-contain ${objectPosition}`}
-        sizes="(max-width: 768px) 470px, 590px"
+        sizes="(max-width: 768px) 470px, 640px"
       />
     </span>
   )
