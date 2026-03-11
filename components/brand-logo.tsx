@@ -3,10 +3,10 @@
 import Image from "next/image"
 import Link from "next/link"
 
-// Centralized logo paths — switch to .svg here when you have vector assets for sharper scaling
+// Centralized logo paths — ?v=1 forces mobile browsers to fetch fresh assets; bump version after logo updates
 const LOGO_SRC = {
-  default: "/ankla-logo.png",
-  scroll: "/ankla-logo-scroll.png",
+  default: "/ankla-logo.png?v=1",
+  scroll: "/ankla-logo-scroll.png?v=1",
 } as const
 
 type BrandLogoProps = {
