@@ -18,7 +18,7 @@ const navigation = [
 export function Header() {
   const { lang, setLang } = useLanguage()
 
-  const labels: Record<(typeof navigation)[number]["key"], string> =
+  const labels: Record<string, string> =
     lang === "es"
       ? {
           home: "Inicio",
@@ -38,12 +38,28 @@ export function Header() {
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border">
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-8">
+        {/* Logo */}
         <div className="flex lg:flex-1">
           <BrandLogo />
         </div>
-        <div className="flex items-center gap-3 lg:gap-4">
-          {/* Language switch - desktop */}
-          <div className="hidden sm:flex items-center rounded-full border border-border bg-card px-1 py-0.5 text-xs font-medium">
+
+        {/* Desktop Navigation */}
+        <div className="hidden lg:flex lg:gap-x-10">
+          {navigation.map((item) => (
+            <Link
+              key={item.key}
+              href={item.href}
+              className="text-sm font-medium text-muted-foreground hover:text-gold transition-colors"
+            >
+              {labels[item.key]}
+            </Link>
+          ))}
+        </div>
+
+        {/* Right side: Language + Desktop Button + Mobile Menu */}
+        <div className="flex items-center justify-end gap-3 lg:gap-4 lg:flex-1">
+          {/* Language switch */}
+          <div className="flex items-center rounded-full border border-border bg-card px-1 py-0.5 text-xs font-medium">
             <button
               type="button"
               onClick={() => setLang("es")}
@@ -64,87 +80,55 @@ export function Header() {
             </button>
           </div>
 
+          {/* Contact Button (Desktop only) */}
+          <div className="hidden lg:block">
+            <Button asChild className="bg-gold text-background hover:bg-gold-light">
+              <Link href="/#contacto">{lang === "es" ? "Contáctanos" : "Contact us"}</Link>
+            </Button>
+          </div>
+
+          {/* Mobile Menu (Sheet) */}
           <div className="flex lg:hidden">
-          <Sheet>
-            <SheetTrigger asChild>
-              <button
-                type="button"
-                className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-foreground"
-              >
-                <span className="sr-only">Abrir menú</span>
-                <Menu className="h-6 w-6" aria-hidden="true" />
-              </button>
-            </SheetTrigger>
-            <SheetContent className="w-full sm:max-w-sm">
-              <SheetHeader className="pb-2">
-                <SheetTitle className="flex items-center justify-between">
-                  <BrandLogo size="sm" className="h-8 w-[150px]" />
-                </SheetTitle>
-              </SheetHeader>
-              <div className="px-4 pb-4">
-                {/* Language switch - mobile */}
-                <div className="mb-4 flex items-center justify-start">
-                  <div className="inline-flex items-center rounded-full border border-border bg-card px-1 py-0.5 text-xs font-medium">
-                    <button
-                      type="button"
-                      onClick={() => setLang("es")}
-                      className={`px-2 py-1 rounded-full transition-colors ${
-                        lang === "es" ? "bg-gold text-background" : "text-muted-foreground hover:text-foreground"
-                      }`}
-                    >
-                      ES
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => setLang("en")}
-                      className={`px-2 py-1 rounded-full transition-colors ${
-                        lang === "en" ? "bg-gold text-background" : "text-muted-foreground hover:text-foreground"
-                      }`}
-                    >
-                      EN
-                    </button>
+            <Sheet>
+              <SheetTrigger asChild>
+                <button
+                  type="button"
+                  className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-foreground"
+                >
+                  <span className="sr-only">Abrir menú</span>
+                  <Menu className="h-6 w-6" aria-hidden="true" />
+                </button>
+              </SheetTrigger>
+              <SheetContent className="w-full sm:max-w-sm">
+                <SheetHeader className="pb-2">
+                  <SheetTitle className="flex items-center justify-between">
+                    <BrandLogo />
+                  </SheetTitle>
+                </SheetHeader>
+                <div className="mt-6 flow-root">
+                  <div className="grid gap-1">
+                    {navigation.map((item) => (
+                      <SheetClose asChild key={item.key}>
+                        <Link
+                          href={item.href}
+                          className="rounded-lg px-3 py-2 text-base font-medium text-foreground hover:bg-secondary transition-colors"
+                        >
+                          {labels[item.key]}
+                        </Link>
+                      </SheetClose>
+                    ))}
+                  </div>
+                  <div className="mt-5">
+                    <SheetClose asChild>
+                      <Button asChild className="w-full bg-gold text-background hover:bg-gold-light">
+                        <Link href="/#contacto">{lang === "es" ? "Contáctanos" : "Contact us"}</Link>
+                      </Button>
+                    </SheetClose>
                   </div>
                 </div>
-                <div className="grid gap-1">
-                  {navigation.map((item) => (
-                    <SheetClose asChild key={item.key}>
-                      <Link
-                        href={item.href}
-                        className="rounded-lg px-3 py-2 text-base font-medium text-foreground hover:bg-secondary transition-colors"
-                      >
-                        {labels[item.key]}
-                      </Link>
-                    </SheetClose>
-                  ))}
-                </div>
-                <div className="mt-5">
-                  <SheetClose asChild>
-                    <Button asChild className="w-full bg-gold text-background hover:bg-gold-light">
-                      <Link href="/#contacto">Contáctanos</Link>
-                    </Button>
-                  </SheetClose>
-                </div>
-              </div>
-            </SheetContent>
-          </Sheet>
-        </div>
-        
-        <div className="hidden lg:flex lg:gap-x-10">
-          {navigation.map((item) => (
-            <Link
-              key={item.key}
-              href={item.href}
-              className="text-sm font-medium text-muted-foreground hover:text-gold transition-colors"
-            >
-              {labels[item.key]}
-            </Link>
-          ))}
-        </div>
-        
-        <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-          <Button asChild className="bg-gold text-background hover:bg-gold-light">
-            <Link href="/#contacto">{lang === "es" ? "Contáctanos" : "Contact us"}</Link>
-          </Button>
+              </SheetContent>
+            </Sheet>
+          </div>
         </div>
       </nav>
     </header>

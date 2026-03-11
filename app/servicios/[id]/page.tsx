@@ -1,3 +1,5 @@
+"use client";
+
 import type { Metadata } from "next"
 import Link from "next/link"
 import { notFound } from "next/navigation"
@@ -13,15 +15,7 @@ type PageProps = {
   params: { id: string }
 }
 
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const { id } = params
-  const service = getServiceById(id)
-  if (!service) return {}
-  return {
-    title: `${service.title} | ANKLA Group Inc`,
-    description: service.description,
-  }
-}
+
 
 export default async function ServicePage({ params }: PageProps) {
   const { id } = params
@@ -116,6 +110,7 @@ function ClientServiceSection({ serviceId, Icon, color }: ClientSectionProps) {
   }
 
   return (
+    <>
       <section className="relative pt-28 pb-16 overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-gold/10 via-background to-background" />
         <div className="absolute inset-0 bg-[linear-gradient(to_right,_rgb(255_255_255_/_0.03)_1px,_transparent_1px),linear-gradient(to_bottom,_rgb(255_255_255_/_0.03)_1px,_transparent_1px)] bg-[size:4rem_4rem]" />
@@ -212,7 +207,6 @@ function ClientServiceSection({ serviceId, Icon, color }: ClientSectionProps) {
           </div>
         </div>
       </section>
-
+    </>
   )
 }
-
