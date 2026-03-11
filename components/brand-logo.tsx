@@ -5,34 +5,39 @@ import Link from "next/link"
 
 type BrandLogoProps = {
   href?: string | null
-  size?: "sm" | "md" | "lg" // Añadimos tamaño lg por si acaso
+  size?: "sm" | "md" | "lg"
+  variant?: "default" | "scroll"
   className?: string
 }
 
-export function BrandLogo({ href = "/", size = "md", className }: BrandLogoProps) {
-  // Aumentamos los anchos y altos para que el logo destaque más
+export function BrandLogo({ href = "/", size = "md", variant = "default", className }: BrandLogoProps) {
+  const isScroll = variant === "scroll"
   const box =
     size === "sm"
-      ? "h-12 w-[180px]" 
-      : "h-16 w-[280px] sm:h-20 sm:w-[320px]" // Tamaño más imponente para escritorio
+      ? "h-8 w-[120px]"
+      : size === "md"
+        ? isScroll
+          ? "h-10 w-[160px]"
+          : "h-16 w-[280px] sm:h-20 sm:w-[320px]"
+        : "h-20 w-[320px]"
+
+  const src = isScroll ? "/ankla-logo-scroll.png" : "/ankla-logo.png"
 
   const inner = (
     <span className={["relative block", box, className].filter(Boolean).join(" ")}>
       <Image
-        src="/ankla-logo.png"
+        src={src}
         alt="ANKLA Group"
         fill
-        priority
-        // "mix-blend-multiply" intenta hacer transparente el blanco (funciona en fondos claros)
-        // "scale-110" lo agranda un poco más dentro del contenedor
-        className="object-contain transform scale-105" 
-        sizes="(max-width: 768px) 200px, 350px"
+        priority={!isScroll}
+        className="object-contain object-left"
+        sizes="(max-width: 768px) 200px, 320px"
       />
     </span>
   )
 
   return href ? (
-    <Link href={href} aria-label="Ir al inicio" className="inline-flex items-center">
+    <Link href={href} aria-label="Go to home" className="inline-flex items-center">
       {inner}
     </Link>
   ) : (

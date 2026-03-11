@@ -5,164 +5,232 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Mail, Phone, MapPin, Send, CheckCircle } from "lucide-react"
+import { useLanguage } from "@/components/language-provider"
+
+const copyEn = {
+  sectionTitle: "Contact",
+  heading: "Let's talk about your project",
+  subheading: "We're ready to help you transform your technology infrastructure. Contact us today.",
+  contactInfo: "Contact information",
+  email: "Email",
+  phone: "Phone",
+  location: "Location",
+  hoursTitle: "Business hours",
+  monFri: "Monday - Friday",
+  sat: "Saturday",
+  techSupport: "Technical Support",
+  name: "Name",
+  namePlaceholder: "Your name",
+  emailPlaceholder: "you@email.com",
+  company: "Company",
+  companyPlaceholder: "Your company name",
+  serviceInterest: "Service of interest",
+  selectService: "Select a service",
+  hostedPbx: "Cloud Telephony (Hosted PBX)",
+  lan: "LAN Networks",
+  support: "Managed Support",
+  inbound: "Inbound Campaigns",
+  outbound: "Outbound Campaigns",
+  aiAgents: "AI Agents",
+  omnichannel: "AI Omnichannel",
+  other: "Other",
+  message: "Message",
+  messagePlaceholder: "Tell us about your project...",
+  send: "Send message",
+  sending: "Sending...",
+  successTitle: "Message sent!",
+  successText: "We'll get back to you soon.",
+}
+
+const copyEs = {
+  sectionTitle: "Contacto",
+  heading: "Hablemos de tu proyecto",
+  subheading: "Estamos listos para ayudarte a transformar tu infraestructura tecnológica. Contáctanos hoy.",
+  contactInfo: "Información de contacto",
+  email: "Email",
+  phone: "Teléfono",
+  location: "Ubicación",
+  hoursTitle: "Horario de atención",
+  monFri: "Lunes - Viernes",
+  sat: "Sábado",
+  techSupport: "Soporte Técnico",
+  name: "Nombre",
+  namePlaceholder: "Tu nombre",
+  emailPlaceholder: "tu@email.com",
+  company: "Empresa",
+  companyPlaceholder: "Nombre de tu empresa",
+  serviceInterest: "Servicio de interés",
+  selectService: "Selecciona un servicio",
+  hostedPbx: "Telefonía en la Nube (Hosted PBX)",
+  lan: "Redes LAN",
+  support: "Soporte Técnico",
+  inbound: "Campañas Inbound",
+  outbound: "Campañas Outbound",
+  aiAgents: "AI Agents",
+  omnichannel: "AI Omnichannel",
+  other: "Otro",
+  message: "Mensaje",
+  messagePlaceholder: "Cuéntanos sobre tu proyecto...",
+  send: "Enviar mensaje",
+  sending: "Enviando...",
+  successTitle: "¡Mensaje enviado!",
+  successText: "Nos pondremos en contacto contigo pronto.",
+}
 
 export function Contact() {
+  const { lang } = useLanguage()
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
+
+  const t = lang === "es" ? copyEs : copyEn
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setIsLoading(true)
-    
-    // Simulate form submission
-    await new Promise(resolve => setTimeout(resolve, 1000))
-    
+    await new Promise((resolve) => setTimeout(resolve, 1000))
     setIsLoading(false)
     setIsSubmitted(true)
-    
-    // Reset after 3 seconds
     setTimeout(() => setIsSubmitted(false), 3000)
   }
+
+  const serviceOptions = [
+    { value: "hosted-pbx", label: t.hostedPbx },
+    { value: "lan", label: t.lan },
+    { value: "support", label: t.support },
+    { value: "inbound", label: t.inbound },
+    { value: "outbound", label: t.outbound },
+    { value: "ai-agents", label: t.aiAgents },
+    { value: "omnichannel", label: t.omnichannel },
+    { value: "other", label: t.other },
+  ]
 
   return (
     <section id="contacto" className="py-24 sm:py-32 bg-background">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        {/* Section header */}
         <div className="mx-auto max-w-2xl text-center mb-16">
-          <p className="text-gold font-medium mb-4">Contacto</p>
+          <p className="text-gold font-medium mb-4">{t.sectionTitle}</p>
           <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl text-balance">
-            Hablemos de tu proyecto
+            {t.heading}
           </h2>
-          <p className="mt-4 text-lg text-muted-foreground text-pretty">
-            Estamos listos para ayudarte a transformar tu infraestructura tecnológica. Contáctanos hoy.
-          </p>
+          <p className="mt-4 text-lg text-muted-foreground text-pretty">{t.subheading}</p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20">
-          {/* Contact info */}
           <div className="space-y-8">
             <div>
-              <h3 className="text-xl font-semibold text-foreground mb-6">
-                Información de contacto
-              </h3>
+              <h3 className="text-xl font-semibold text-foreground mb-6">{t.contactInfo}</h3>
               <div className="space-y-6">
                 <div className="flex items-start gap-4">
                   <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-gold/10 flex items-center justify-center">
                     <Mail className="h-5 w-5 text-gold" />
                   </div>
                   <div>
-                    <p className="font-medium text-foreground">Email</p>
-                    <a href="mailto:info@anklagroup.com" className="text-muted-foreground hover:text-gold transition-colors">
+                    <p className="font-medium text-foreground">{t.email}</p>
+                    <a
+                      href="mailto:info@anklagroup.com"
+                      className="text-muted-foreground hover:text-gold transition-colors"
+                    >
                       info@anklagroup.com
                     </a>
                   </div>
                 </div>
-                
                 <div className="flex items-start gap-4">
                   <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-gold/10 flex items-center justify-center">
                     <Phone className="h-5 w-5 text-gold" />
                   </div>
                   <div>
-                    <p className="font-medium text-foreground">Teléfono</p>
-                    <a href="tel:+1234567890" className="text-muted-foreground hover:text-gold transition-colors">
+                    <p className="font-medium text-foreground">{t.phone}</p>
+                    <a
+                      href="tel:+1234567890"
+                      className="text-muted-foreground hover:text-gold transition-colors"
+                    >
                       +1 (234) 567-890
                     </a>
                   </div>
                 </div>
-                
                 <div className="flex items-start gap-4">
                   <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-gold/10 flex items-center justify-center">
                     <MapPin className="h-5 w-5 text-gold" />
                   </div>
                   <div>
-                    <p className="font-medium text-foreground">Ubicación</p>
-                    <p className="text-muted-foreground">
-                      Miami, Florida, USA
-                    </p>
+                    <p className="font-medium text-foreground">{t.location}</p>
+                    <p className="text-muted-foreground">Miami, Florida, USA</p>
                   </div>
                 </div>
               </div>
             </div>
-            
-            {/* Working hours */}
+
             <div className="rounded-2xl border border-border bg-card p-6">
-              <h4 className="font-semibold text-foreground mb-4">Horario de atención</h4>
+              <h4 className="font-semibold text-foreground mb-4">{t.hoursTitle}</h4>
               <div className="space-y-2 text-sm">
                 <div className="flex justify-between">
-                  <span className="text-muted-foreground">Lunes - Viernes</span>
+                  <span className="text-muted-foreground">{t.monFri}</span>
                   <span className="text-foreground">8:00 AM - 6:00 PM</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-muted-foreground">Sábado</span>
+                  <span className="text-muted-foreground">{t.sat}</span>
                   <span className="text-foreground">9:00 AM - 2:00 PM</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-muted-foreground">Soporte Técnico</span>
+                  <span className="text-muted-foreground">{t.techSupport}</span>
                   <span className="text-gold font-medium">24/7</span>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Contact form */}
           <div className="rounded-2xl border border-border bg-card p-6 lg:p-8">
             {isSubmitted ? (
               <div className="flex flex-col items-center justify-center h-full py-12 text-center">
                 <div className="w-16 h-16 rounded-full bg-gold/10 flex items-center justify-center mb-4">
                   <CheckCircle className="h-8 w-8 text-gold" />
                 </div>
-                <h3 className="text-xl font-semibold text-foreground mb-2">
-                  ¡Mensaje enviado!
-                </h3>
-                <p className="text-muted-foreground">
-                  Nos pondremos en contacto contigo pronto.
-                </p>
+                <h3 className="text-xl font-semibold text-foreground mb-2">{t.successTitle}</h3>
+                <p className="text-muted-foreground">{t.successText}</p>
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="space-y-2">
                     <label htmlFor="name" className="text-sm font-medium text-foreground">
-                      Nombre
+                      {t.name}
                     </label>
                     <Input
                       id="name"
                       name="name"
-                      placeholder="Tu nombre"
+                      placeholder={t.namePlaceholder}
                       required
                       className="bg-background border-border focus:border-gold focus:ring-gold"
                     />
                   </div>
                   <div className="space-y-2">
                     <label htmlFor="email" className="text-sm font-medium text-foreground">
-                      Email
+                      {t.email}
                     </label>
                     <Input
                       id="email"
                       name="email"
                       type="email"
-                      placeholder="tu@email.com"
+                      placeholder={t.emailPlaceholder}
                       required
                       className="bg-background border-border focus:border-gold focus:ring-gold"
                     />
                   </div>
                 </div>
-                
                 <div className="space-y-2">
                   <label htmlFor="company" className="text-sm font-medium text-foreground">
-                    Empresa
+                    {t.company}
                   </label>
                   <Input
                     id="company"
                     name="company"
-                    placeholder="Nombre de tu empresa"
+                    placeholder={t.companyPlaceholder}
                     className="bg-background border-border focus:border-gold focus:ring-gold"
                   />
                 </div>
-                
                 <div className="space-y-2">
                   <label htmlFor="service" className="text-sm font-medium text-foreground">
-                    Servicio de interés
+                    {t.serviceInterest}
                   </label>
                   <select
                     id="service"
@@ -170,45 +238,35 @@ export function Contact() {
                     className="w-full h-10 px-3 rounded-md border border-border bg-background text-foreground focus:border-gold focus:ring-gold focus:outline-none"
                     defaultValue=""
                   >
-                    <option value="" disabled>Selecciona un servicio</option>
-                    <option value="hosted-pbx">Telefonía en la Nube (Hosted PBX)</option>
-                    <option value="lan">Redes LAN</option>
-                    <option value="support">Soporte Técnico</option>
-                    <option value="inbound">Campañas Inbound</option>
-                    <option value="outbound">Campañas Outbound</option>
-                    <option value="ai-agents">AI Agents</option>
-                    <option value="omnichannel">AI Omnichannel</option>
-                    <option value="other">Otro</option>
+                    <option value="" disabled>
+                      {t.selectService}
+                    </option>
+                    {serviceOptions.map((opt) => (
+                      <option key={opt.value} value={opt.value}>
+                        {opt.label}
+                      </option>
+                    ))}
                   </select>
                 </div>
-                
                 <div className="space-y-2">
                   <label htmlFor="message" className="text-sm font-medium text-foreground">
-                    Mensaje
+                    {t.message}
                   </label>
                   <Textarea
                     id="message"
                     name="message"
-                    placeholder="Cuéntanos sobre tu proyecto..."
+                    placeholder={t.messagePlaceholder}
                     rows={4}
                     required
                     className="bg-background border-border focus:border-gold focus:ring-gold resize-none"
                   />
                 </div>
-                
                 <Button
                   type="submit"
                   disabled={isLoading}
                   className="w-full bg-gold text-background hover:bg-gold-light disabled:opacity-50"
                 >
-                  {isLoading ? (
-                    "Enviando..."
-                  ) : (
-                    <>
-                      Enviar mensaje
-                      <Send className="ml-2 h-4 w-4" />
-                    </>
-                  )}
+                  {isLoading ? t.sending : <><span>{t.send}</span><Send className="ml-2 h-4 w-4 inline" /></>}
                 </Button>
               </form>
             )}

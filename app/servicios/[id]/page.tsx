@@ -8,7 +8,18 @@ import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { getServiceById } from "@/lib/services"
 import { useLanguage } from "@/components/language-provider"
+import { IllustrationPlaceholder } from "@/components/illustration-placeholder"
 import { useEffect, useState } from "react"
+
+const ILLUSTRATION_VARIANT: Record<string, "telephony" | "lan" | "support" | "ai"> = {
+  "hosted-pbx": "telephony",
+  lan: "lan",
+  support: "support",
+  inbound: "telephony",
+  outbound: "telephony",
+  "ai-agents": "ai",
+  omnichannel: "ai",
+}
 
 export default function ServicePage() {
   const params = useParams()
@@ -40,33 +51,39 @@ export default function ServicePage() {
       <Header />
       
       <section className="relative pt-28 pb-16 overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-gold/10 via-background to-background" />
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,_rgb(255_255_255_/_0.03)_1px,_transparent_1px),linear-gradient(to_bottom,_rgb(255_255_255_/_0.03)_1px,_transparent_1px)] bg-[size:4rem_4rem]" />
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-gold/10 via-background to-background" />
+          <div className="absolute inset-0 bg-[linear-gradient(to_right,_rgb(255_255_255_/_0.03)_1px,_transparent_1px),linear-gradient(to_bottom,_rgb(255_255_255_/_0.03)_1px,_transparent_1px)] bg-[size:4rem_4rem]" />
+        </div>
 
         <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="max-w-3xl">
-            <div className="inline-flex items-center gap-2 rounded-full border border-gold/30 bg-gold/10 px-4 py-2 text-sm text-gold">
-              <Icon className="h-4 w-4" />
-              <span>{locale.subtitle}</span>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start">
+            <div className="order-2 lg:order-1">
+              <div className="inline-flex items-center gap-2 rounded-full border border-gold/30 bg-gold/10 px-4 py-2 text-sm text-gold">
+                <Icon className="h-4 w-4" />
+                <span>{locale.subtitle}</span>
+              </div>
+              <h1 className="mt-6 text-4xl sm:text-5xl font-bold tracking-tight text-foreground text-balance">
+                {locale.title}
+              </h1>
+              <p className="mt-5 text-lg text-muted-foreground text-pretty">
+                {locale.intro}
+              </p>
+              <div className="mt-8 flex flex-col sm:flex-row gap-3">
+                <Button asChild size="lg" className="bg-gold text-background hover:bg-gold-light">
+                  <Link href="/#contacto">
+                    {lang === "es" ? "Solicitar asesoría" : "Request consultation"}
+                  </Link>
+                </Button>
+                <Button asChild size="lg" variant="outline" className="border-border">
+                  <Link href="/#servicios">
+                    {lang === "es" ? "Ver otros servicios" : "Other services"}
+                  </Link>
+                </Button>
+              </div>
             </div>
-            <h1 className="mt-6 text-4xl sm:text-5xl font-bold tracking-tight text-foreground text-balance">
-              {locale.title}
-            </h1>
-            <p className="mt-5 text-lg text-muted-foreground text-pretty">
-              {locale.intro}
-            </p>
-
-            <div className="mt-8 flex flex-col sm:flex-row gap-3">
-              <Button asChild size="lg" className="bg-gold text-background hover:bg-gold-light">
-                <Link href="/#contacto">
-                  {lang === "es" ? "Solicitar asesoría" : "Request consultation"}
-                </Link>
-              </Button>
-              <Button asChild size="lg" variant="outline" className="border-border">
-                <Link href="/#servicios">
-                   {lang === "es" ? "Ver otros servicios" : "Other services"}
-                </Link>
-              </Button>
+            <div className="order-1 lg:order-2">
+              <IllustrationPlaceholder variant={ILLUSTRATION_VARIANT[service.id] || "ai"} className="min-h-[280px]" />
             </div>
           </div>
 

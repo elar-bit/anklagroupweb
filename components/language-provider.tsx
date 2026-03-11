@@ -12,7 +12,7 @@ type LanguageContextValue = {
 const LanguageContext = createContext<LanguageContextValue | null>(null)
 
 export function LanguageProvider({ children }: { children: React.ReactNode }) {
-  const [lang, setLangState] = useState<Lang>("es")
+  const [lang, setLangState] = useState<Lang>("en")
 
   useEffect(() => {
     if (typeof window === "undefined") return
@@ -21,8 +21,7 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
       setLangState(stored)
       return
     }
-    const browser = window.navigator.language.toLowerCase()
-    if (browser.startsWith("en")) setLangState("en")
+    setLangState("en")
   }, [])
 
   const setLang = (value: Lang) => {
