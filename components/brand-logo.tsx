@@ -25,7 +25,7 @@ export function BrandLogo({ href = "/", size = "md", className }: BrandLogoProps
         priority
         // "mix-blend-multiply" intenta hacer transparente el blanco (funciona en fondos claros)
         // "scale-110" lo agranda un poco más dentro del contenedor
-        className="object-contain mix-blend-multiply transform scale-105" 
+        className="object-contain transform scale-105" 
         sizes="(max-width: 768px) 200px, 350px"
       />
     </span>
