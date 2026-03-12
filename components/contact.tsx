@@ -40,6 +40,7 @@ const copyEn = {
   sending: "Sending...",
   successTitle: "Message sent!",
   successText: "We'll get back to you soon.",
+  requiredMessage: "Please fill out this field",
 }
 
 const copyEs = {
@@ -75,6 +76,7 @@ const copyEs = {
   sending: "Enviando...",
   successTitle: "¡Mensaje enviado!",
   successText: "Nos pondremos en contacto contigo pronto.",
+  requiredMessage: "Llena este campo",
 }
 
 export function Contact() {
@@ -200,6 +202,8 @@ export function Contact() {
                       name="name"
                       placeholder={t.namePlaceholder}
                       required
+                      onInvalid={(e) => e.currentTarget.setCustomValidity(t.requiredMessage)}
+                      onInput={(e) => e.currentTarget.setCustomValidity("")}
                       className="bg-background border-border focus:border-gold focus:ring-gold"
                     />
                   </div>
@@ -213,6 +217,8 @@ export function Contact() {
                       type="email"
                       placeholder={t.emailPlaceholder}
                       required
+                      onInvalid={(e) => e.currentTarget.setCustomValidity(t.requiredMessage)}
+                      onInput={(e) => e.currentTarget.setCustomValidity("")}
                       className="bg-background border-border focus:border-gold focus:ring-gold"
                     />
                   </div>
@@ -258,6 +264,8 @@ export function Contact() {
                     placeholder={t.messagePlaceholder}
                     rows={4}
                     required
+                    onInvalid={(e) => e.currentTarget.setCustomValidity(t.requiredMessage)}
+                    onInput={(e) => e.currentTarget.setCustomValidity("")}
                     className="bg-background border-border focus:border-gold focus:ring-gold resize-none"
                   />
                 </div>
