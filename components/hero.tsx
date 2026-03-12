@@ -1,12 +1,12 @@
 "use client"
 
+import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { ArrowRight, Phone, Network, Bot } from "lucide-react"
 import Link from "next/link"
 import { useLanguage } from "@/components/language-provider"
-import { IllustrationPlaceholder } from "@/components/illustration-placeholder"
 
-const HERO_VIDEO_SRC = "" // e.g. "/hero-bg.mp4" — add file to public for background video
+const HERO_VIDEO_SRC = "/particles.mp4"
 
 export function Hero() {
   const { lang } = useLanguage()
@@ -38,23 +38,21 @@ export function Hero() {
 
   return (
     <section id="inicio" className="relative min-h-screen flex items-center justify-center overflow-hidden pt-32 md:pt-24">
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-gold/10 via-background to-background" />
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,_rgb(255_255_255_/_0.03)_1px,_transparent_1px),linear-gradient(to_bottom,_rgb(255_255_255_/_0.03)_1px,_transparent_1px)] bg-[size:4rem_4rem]" />
-      {HERO_VIDEO_SRC && (
-        <video
-          className="absolute inset-0 w-full h-full object-cover opacity-20 pointer-events-none"
-          muted
-          autoPlay
-          loop
-          playsInline
-          aria-hidden
-          src={HERO_VIDEO_SRC}
-        />
-      )}
+      <video
+        className="absolute inset-0 w-full h-full object-cover pointer-events-none"
+        muted
+        autoPlay
+        loop
+        playsInline
+        aria-hidden
+        src={HERO_VIDEO_SRC}
+      />
+      <div className="absolute inset-0 bg-blue-900/40" aria-hidden />
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,_rgb(255_255_255_/_0.03)_1px,_transparent_1px),linear-gradient(to_bottom,_rgb(255_255_255_/_0.03)_1px,_transparent_1px)] bg-[size:4rem_4rem] pointer-events-none" />
 
       <div className="relative z-10 mx-auto max-w-7xl px-6 py-24 sm:py-32 lg:px-8 w-full">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-          <div className="text-center lg:text-left">
+          <div className="text-center lg:text-left order-2 lg:order-1">
             <div className="mb-8 inline-flex items-center gap-2 rounded-full border border-gold/30 bg-gold/10 px-4 py-2 text-sm text-gold">
               <Bot className="h-4 w-4" />
               <span>{copy.badge}</span>
@@ -102,8 +100,8 @@ export function Hero() {
               </div>
             </div>
           </div>
-          <div className="hidden lg:block">
-            <IllustrationPlaceholder variant="hero" className="min-h-[320px]" />
+          <div className="flex items-center justify-center order-1 lg:order-2">
+            <Image src="/home1.svg" alt="" width={480} height={360} className="w-full max-w-md h-auto object-contain" />
           </div>
         </div>
       </div>

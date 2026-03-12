@@ -71,14 +71,12 @@ export function About() {
           </div>
           <div className="relative">
             <div className="aspect-square rounded-2xl bg-gradient-to-br from-gold/20 via-gold/10 to-transparent p-8 lg:p-12">
-              <div className="w-full h-full rounded-xl bg-background/50 backdrop-blur-sm border border-border flex items-center justify-center">
-                <div className="text-center">
-                  <div className="flex items-center justify-center mb-6">
-                    <BrandLogo href={null} className="h-16 w-[280px]" />
-                  </div>
-                  <h3 className="text-2xl font-bold text-foreground mb-2">{t.tagline}</h3>
-                  <p className="text-gold font-medium">{t.subtitle}</p>
+              <div className="w-full h-full rounded-xl bg-background/50 backdrop-blur-sm border border-border flex flex-col items-center justify-center text-center">
+                <div className="w-full flex justify-center mb-6">
+                  <BrandLogo href={null} className="h-24 w-[320px] sm:h-28 sm:w-[380px] mx-auto" />
                 </div>
+                <h3 className="text-2xl font-bold text-foreground mb-2">{t.tagline}</h3>
+                <p className="text-gold font-medium">{t.subtitle}</p>
               </div>
             </div>
             <div className="absolute -top-4 -right-4 w-24 h-24 bg-gold/10 rounded-full blur-2xl" />
