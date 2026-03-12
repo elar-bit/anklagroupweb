@@ -1,7 +1,7 @@
 "use client"
 
+import Image from "next/image"
 import { Shield, Clock, Users, Award } from "lucide-react"
-import { BrandLogo } from "@/components/brand-logo"
 import { useLanguage } from "@/components/language-provider"
 
 const valuesEn = [
@@ -72,8 +72,14 @@ export function About() {
           <div className="relative">
             <div className="aspect-square rounded-2xl bg-gradient-to-br from-gold/20 via-gold/10 to-transparent p-8 lg:p-12">
               <div className="w-full h-full rounded-xl bg-background/50 backdrop-blur-sm border border-border flex flex-col items-center justify-center text-center">
-                <div className="w-full flex justify-center mb-6">
-                  <BrandLogo href={null} className="h-24 w-[320px] sm:h-28 sm:w-[380px] mx-auto" />
+                <div className="w-full flex justify-center items-center mb-6 flex-1 min-h-0">
+                  <Image
+                    src="/trust.svg"
+                    alt=""
+                    width={280}
+                    height={200}
+                    className="w-full max-w-[260px] sm:max-w-[300px] h-auto object-contain object-center"
+                  />
                 </div>
                 <h3 className="text-2xl font-bold text-foreground mb-2">{t.tagline}</h3>
                 <p className="text-gold font-medium">{t.subtitle}</p>
