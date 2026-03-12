@@ -73,7 +73,7 @@ export function Hero() {
               <span className="text-gold">{copy.title2}</span>
               {copy.title3}
             </h1>
-            <p className="mt-6 text-lg leading-8 text-muted-foreground max-w-2xl mx-auto lg:mx-0 text-pretty">
+            <p className="mt-6 text-lg leading-8 text-white/90 max-w-2xl mx-auto lg:mx-0 text-pretty">
               {copy.subtitle}
             </p>
             <div className="mt-10 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
@@ -93,21 +93,21 @@ export function Hero() {
                   <Phone className="h-6 w-6 text-gold" />
                 </div>
                 <span className="text-2xl font-bold text-foreground">500+</span>
-                <span className="text-xs text-muted-foreground">{copy.statLines[0]}</span>
+                <span className="text-xs text-white/80">{copy.statLines[0]}</span>
               </div>
               <div className="flex flex-col items-center lg:items-start">
                 <div className="flex items-center justify-center w-12 h-12 rounded-full bg-gold/10 mb-2">
                   <Network className="h-6 w-6 text-gold" />
                 </div>
                 <span className="text-2xl font-bold text-foreground">150+</span>
-                <span className="text-xs text-muted-foreground">{copy.statLines[1]}</span>
+                <span className="text-xs text-white/80">{copy.statLines[1]}</span>
               </div>
               <div className="flex flex-col items-center lg:items-start">
                 <div className="flex items-center justify-center w-12 h-12 rounded-full bg-gold/10 mb-2">
                   <Bot className="h-6 w-6 text-gold" />
                 </div>
                 <span className="text-2xl font-bold text-foreground">99.9%</span>
-                <span className="text-xs text-muted-foreground">{copy.statLines[2]}</span>
+                <span className="text-xs text-white/80">{copy.statLines[2]}</span>
               </div>
             </div>
           </div>

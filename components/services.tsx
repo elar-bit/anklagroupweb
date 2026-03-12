@@ -25,7 +25,7 @@ export function Services() {
               ? "Soluciones tecnológicas integrales para tu empresa"
               : "End‑to‑end technology solutions for your business"}
           </h2>
-          <p className="mt-4 text-lg text-muted-foreground text-pretty">
+          <p className="mt-4 text-lg text-gray-200 text-pretty">
             {lang === "es"
               ? "Desde telefonía hasta inteligencia artificial, cubrimos todas las necesidades de comunicación y tecnología de tu negocio."
               : "From cloud telephony to artificial intelligence, we cover your company’s key communication and technology needs."}
@@ -78,14 +78,14 @@ export function Services() {
                   <p className="text-sm text-gold mb-3">{locale.subtitle}</p>
 
                   {/* Description */}
-                  <p className="text-muted-foreground text-sm mb-4">{locale.intro}</p>
+                  <p className="text-gray-200 text-sm mb-4">{locale.intro}</p>
 
                   {/* Benefits */}
                   <ul className="space-y-2 mb-4">
                     {locale.benefits.slice(0, 4).map((feature) => (
                       <li
                         key={feature}
-                        className="flex items-center gap-2 text-sm text-muted-foreground"
+                        className="flex items-center gap-2 text-sm text-gray-200"
                       >
                         <Check className="h-4 w-4 text-gold flex-shrink-0" />
                         <span>{feature}</span>

@@ -63,7 +63,7 @@ export default function ServicePage() {
                 <h1 className="mt-6 text-4xl sm:text-5xl font-bold tracking-tight text-foreground text-balance">
                   {locale.title}
                 </h1>
-                <p className="mt-5 text-lg text-muted-foreground text-pretty">{locale.intro}</p>
+                <p className="mt-5 text-lg text-gray-200 text-pretty">{locale.intro}</p>
                 <div className="mt-8 flex flex-col sm:flex-row gap-3">
                   <Button asChild size="lg" className="bg-gold text-background hover:bg-gold-light">
                     <Link href="/#contacto">
@@ -129,7 +129,7 @@ export default function ServicePage() {
                     </h2>
                   )}
                   {contentParagraphs.map((paragraph, i) => (
-                    <p key={i} className="text-muted-foreground text-pretty leading-relaxed">
+                    <p key={i} className="text-gray-200 text-pretty leading-relaxed">
                       {paragraph}
                     </p>
                   ))}

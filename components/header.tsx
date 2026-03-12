@@ -69,7 +69,7 @@ export function Header() {
         type="button"
         onClick={() => setLang("es")}
         className={`px-2 py-1 rounded-full transition-colors ${
-          lang === "es" ? "bg-gold text-background" : "text-muted-foreground hover:text-foreground"
+          lang === "es" ? "bg-gold text-background" : "text-white/90 hover:text-white"
         }`}
       >
         ES
@@ -78,7 +78,7 @@ export function Header() {
         type="button"
         onClick={() => setLang("en")}
         className={`px-2 py-1 rounded-full transition-colors ${
-          lang === "en" ? "bg-gold text-background" : "text-muted-foreground hover:text-foreground"
+          lang === "en" ? "bg-gold text-background" : "text-white/90 hover:text-white"
         }`}
       >
         EN
@@ -125,7 +125,7 @@ export function Header() {
                 <Link
                   key={item.key}
                   href={item.href}
-                  className="text-sm font-medium text-muted-foreground hover:text-gold transition-colors"
+                  className="text-sm font-medium text-white/90 hover:text-gold transition-colors"
                 >
                   {labels[item.key]}
                 </Link>

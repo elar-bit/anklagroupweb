@@ -112,7 +112,7 @@ export function Contact() {
           <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl text-balance">
             {t.heading}
           </h2>
-          <p className="mt-4 text-lg text-muted-foreground text-pretty">{t.subheading}</p>
+          <p className="mt-4 text-lg text-gray-200 text-pretty">{t.subheading}</p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20">
@@ -128,7 +128,7 @@ export function Contact() {
                     <p className="font-medium text-foreground">{t.email}</p>
                     <a
                       href="mailto:info@anklagroup.com"
-                      className="text-muted-foreground hover:text-gold transition-colors"
+                      className="text-gray-200 hover:text-gold transition-colors"
                     >
                       info@anklagroup.com
                     </a>
@@ -142,7 +142,7 @@ export function Contact() {
                     <p className="font-medium text-foreground">{t.phone}</p>
                     <a
                       href="tel:+1234567890"
-                      className="text-muted-foreground hover:text-gold transition-colors"
+                      className="text-gray-200 hover:text-gold transition-colors"
                     >
                       +1 (234) 567-890
                     </a>
@@ -154,7 +154,7 @@ export function Contact() {
                   </div>
                   <div>
                     <p className="font-medium text-foreground">{t.location}</p>
-                    <p className="text-muted-foreground">Miami, Florida, USA</p>
+                    <p className="text-gray-200">Miami, Florida, USA</p>
                   </div>
                 </div>
               </div>
@@ -164,15 +164,15 @@ export function Contact() {
               <h4 className="font-semibold text-foreground mb-4">{t.hoursTitle}</h4>
               <div className="space-y-2 text-sm">
                 <div className="flex justify-between">
-                  <span className="text-muted-foreground">{t.monFri}</span>
+                  <span className="text-gray-200">{t.monFri}</span>
                   <span className="text-foreground">8:00 AM - 6:00 PM</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-muted-foreground">{t.sat}</span>
+                  <span className="text-gray-200">{t.sat}</span>
                   <span className="text-foreground">9:00 AM - 2:00 PM</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-muted-foreground">{t.techSupport}</span>
+                  <span className="text-gray-200">{t.techSupport}</span>
                   <span className="text-gold font-medium">24/7</span>
                 </div>
               </div>
@@ -186,7 +186,7 @@ export function Contact() {
                   <CheckCircle className="h-8 w-8 text-gold" />
                 </div>
                 <h3 className="text-xl font-semibold text-foreground mb-2">{t.successTitle}</h3>
-                <p className="text-muted-foreground">{t.successText}</p>
+                <p className="text-gray-200">{t.successText}</p>
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-6">

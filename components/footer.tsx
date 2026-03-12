@@ -75,7 +75,7 @@ export function Footer() {
             <div className="mb-4">
               <BrandLogo size="md" />
             </div>
-            <p className="text-sm text-muted-foreground mb-6 max-w-xs">{t.tagline}</p>
+            <p className="text-sm text-gray-200 mb-6 max-w-xs">{t.tagline}</p>
             <div className="flex gap-4">
               {t.social.map((item) => {
                 const Icon = item.icon
@@ -83,7 +83,7 @@ export function Footer() {
                   <a
                     key={item.name}
                     href={item.href}
-                    className="text-muted-foreground hover:text-gold transition-colors"
+                    className="text-gray-200 hover:text-gold transition-colors"
                     aria-label={item.name}
                   >
                     <Icon className="h-5 w-5" />
@@ -100,7 +100,7 @@ export function Footer() {
                 <li key={item.name}>
                   <Link
                     href={item.href}
-                    className="text-sm text-muted-foreground hover:text-gold transition-colors"
+                    className="text-sm text-gray-200 hover:text-gold transition-colors"
                   >
                     {item.name}
                   </Link>
@@ -116,7 +116,7 @@ export function Footer() {
                 <li key={item.name}>
                   <Link
                     href={item.href}
-                    className="text-sm text-muted-foreground hover:text-gold transition-colors"
+                    className="text-sm text-gray-200 hover:text-gold transition-colors"
                   >
                     {item.name}
                   </Link>
@@ -132,7 +132,7 @@ export function Footer() {
                 <li key={item.name}>
                   <Link
                     href={item.href}
-                    className="text-sm text-muted-foreground hover:text-gold transition-colors"
+                    className="text-sm text-gray-200 hover:text-gold transition-colors"
                   >
                     {item.name}
                   </Link>
@@ -143,7 +143,7 @@ export function Footer() {
         </div>
 
         <div className="mt-12 pt-8 border-t border-border">
-          <p className="text-sm text-muted-foreground text-center">
+          <p className="text-sm text-gray-200 text-center">
             &copy; {new Date().getFullYear()} ANKLA Group Inc. {t.copyright}
           </p>
         </div>

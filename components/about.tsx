@@ -50,8 +50,8 @@ export function About() {
             <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl mb-6 text-balance">
               {t.heading}
             </h2>
-            <p className="text-lg text-muted-foreground mb-6 text-pretty">{t.para1}</p>
-            <p className="text-muted-foreground mb-8 text-pretty">{t.para2}</p>
+            <p className="text-lg text-gray-200 mb-6 text-pretty">{t.para1}</p>
+            <p className="text-gray-200 mb-8 text-pretty">{t.para2}</p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               {values.map((value) => {
                 const Icon = value.icon
@@ -62,7 +62,7 @@ export function About() {
                     </div>
                     <div>
                       <h3 className="font-semibold text-foreground mb-1">{value.title}</h3>
-                      <p className="text-sm text-muted-foreground">{value.description}</p>
+                      <p className="text-sm text-gray-200">{value.description}</p>
                     </div>
                   </div>
                 )
