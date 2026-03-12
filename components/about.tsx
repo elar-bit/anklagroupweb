@@ -71,18 +71,18 @@ export function About() {
           </div>
           <div className="relative">
             <div className="aspect-square rounded-2xl bg-gradient-to-br from-gold/20 via-gold/10 to-transparent p-8 lg:p-12">
-              <div className="w-full h-full rounded-xl bg-background/50 backdrop-blur-sm border border-border flex flex-col items-center justify-center text-center">
-                <div className="w-full flex justify-center items-center mb-6 flex-1 min-h-0">
-                  <Image
-                    src="/trust.svg"
-                    alt=""
-                    width={280}
-                    height={200}
-                    className="w-full max-w-[260px] sm:max-w-[300px] h-auto object-contain object-center"
-                  />
+              <div className="w-full h-full rounded-xl bg-background/50 backdrop-blur-sm border border-border flex flex-col items-center justify-center text-center gap-4 py-4">
+                <Image
+                  src="/trust.svg"
+                  alt=""
+                  width={180}
+                  height={120}
+                  className="w-full max-w-[160px] sm:max-w-[200px] h-auto object-contain object-center shrink-0"
+                />
+                <div className="shrink-0">
+                  <h3 className="text-2xl font-bold text-foreground mb-1">{t.tagline}</h3>
+                  <p className="text-gold font-medium text-sm sm:text-base">{t.subtitle}</p>
                 </div>
-                <h3 className="text-2xl font-bold text-foreground mb-2">{t.tagline}</h3>
-                <p className="text-gold font-medium">{t.subtitle}</p>
               </div>
             </div>
             <div className="absolute -top-4 -right-4 w-24 h-24 bg-gold/10 rounded-full blur-2xl" />
