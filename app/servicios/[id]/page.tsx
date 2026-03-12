@@ -77,13 +77,21 @@ export default function ServicePage() {
               </div>
               <div className="order-1 lg:order-2 flex justify-center">
                 {assets?.svg1 && (
-                  <Image
-                    src={assets.svg1}
-                    alt=""
-                    width={400}
-                    height={300}
-                    className="w-full max-w-sm h-auto object-contain"
-                  />
+                  <div className="relative w-full max-w-md flex justify-center items-center p-4">
+                    <div
+                      className="absolute inset-0 rounded-3xl bg-[radial-gradient(ellipse_75%_75%_at_50%_50%,rgba(56,189,248,0.14),transparent_65%)] pointer-events-none"
+                      aria-hidden
+                    />
+                    <div className="relative rounded-3xl bg-white/5 backdrop-blur-md border border-white/10 p-8 flex justify-center items-center w-full min-h-[240px]">
+                      <Image
+                        src={assets.svg1}
+                        alt=""
+                        width={420}
+                        height={320}
+                        className="w-full h-auto object-contain"
+                      />
+                    </div>
+                  </div>
                 )}
               </div>
             </div>
@@ -98,13 +106,21 @@ export default function ServicePage() {
             <ScrollReveal>
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
                 <div className="flex justify-center order-2 lg:order-1">
-                  <Image
-                    src={assets.svg2}
-                    alt=""
-                    width={400}
-                    height={300}
-                    className="w-full max-w-sm h-auto object-contain"
-                  />
+                  <div className="relative w-full max-w-md flex justify-center items-center p-4">
+                    <div
+                      className="absolute inset-0 rounded-3xl bg-[radial-gradient(ellipse_75%_75%_at_50%_50%,rgba(56,189,248,0.14),transparent_65%)] pointer-events-none"
+                      aria-hidden
+                    />
+                    <div className="relative rounded-3xl bg-white/5 backdrop-blur-md border border-white/10 p-8 flex justify-center items-center w-full min-h-[240px]">
+                      <Image
+                        src={assets.svg2}
+                        alt=""
+                        width={420}
+                        height={320}
+                        className="w-full h-auto object-contain"
+                      />
+                    </div>
+                  </div>
                 </div>
                 <div className="order-1 lg:order-2 space-y-6">
                   {contentTitle && (
