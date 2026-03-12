@@ -1,6 +1,7 @@
 "use client"
 
 import Link from "next/link"
+import { usePathname } from "next/navigation"
 import { Menu } from "lucide-react"
 import { useEffect, useState } from "react"
 import { BrandLogo } from "@/components/brand-logo"
@@ -46,8 +47,12 @@ const labelsEs: Record<string, string> = {
 }
 
 export function Header() {
+  const pathname = usePathname()
   const { lang, setLang } = useLanguage()
   const [isScrolled, setIsScrolled] = useState(false)
+
+  const isHome = pathname === "/"
+  const showTransparent = isHome && !isScrolled
 
   useEffect(() => {
     const onScroll = () => setIsScrolled(window.scrollY >= SCROLL_THRESHOLD)
@@ -84,37 +89,37 @@ export function Header() {
   return (
     <header
       className={`fixed top-0 left-0 w-full z-[9999] border-b transition-all duration-300 ${
-        isScrolled
-          ? "bg-background/95 backdrop-blur-md border-border"
-          : "bg-transparent border-transparent"
+        showTransparent
+          ? "bg-transparent border-transparent"
+          : "bg-background/95 backdrop-blur-md border-border"
       }`}
     >
-      {/* Nav: mobile = less padding so logo sits higher; desktop = taller for main logo */}
+      {/* Nav: compact on non-home or when scrolled; expanded only on home at top */}
       <nav
         className={`relative mx-auto flex max-w-7xl items-center px-6 lg:px-8 ${
-          isScrolled ? "py-4" : "py-2 min-h-0 lg:min-h-[180px] lg:py-6"
+          showTransparent ? "py-2 min-h-0 lg:min-h-[180px] lg:py-6" : "py-4"
         }`}
       >
-        {/* Left: scroll logo (when scrolled) or empty spacer — scroll logo stays visible on mobile */}
-        <div className={`flex-1 flex items-center min-w-0 justify-start ${isScrolled ? "min-w-[140px] lg:min-w-0" : ""}`}>
-          {isScrolled ? (
+        {/* Left: scroll logo (when compact) or empty spacer */}
+        <div className={`flex-1 flex items-center min-w-0 justify-start ${!showTransparent ? "min-w-[140px] lg:min-w-0" : ""}`}>
+          {!showTransparent ? (
             <BrandLogo variant="scroll" size="md" className="shrink-0" />
           ) : (
             <div className="hidden lg:block flex-1 min-w-0" aria-hidden />
           )}
         </div>
 
-        {/* Center: main logo (desktop, initial state only) — pt-4/py-4 so it never touches top; flexbox center */}
-        {!isScrolled && (
+        {/* Center: main logo (desktop, only on home at top) */}
+        {showTransparent && (
           <div className="hidden lg:flex absolute inset-0 items-center justify-center pt-4 pb-4 pointer-events-none">
             <div className="pointer-events-auto flex items-center justify-center">
               <BrandLogo variant="default" size="lg" align="center" />
             </div>
           </div>
         )}
-        {/* Center when scrolled: nav links */}
+        {/* Center when compact: nav links */}
         <div className="hidden lg:flex flex-1 justify-center items-center">
-          {isScrolled ? (
+          {!showTransparent ? (
             <div className="flex gap-x-8">
               {navigation.map((item) => (
                 <Link
@@ -155,7 +160,7 @@ export function Header() {
               <SheetContent className="w-full sm:max-w-sm">
                 <SheetHeader className="pb-2">
                   <SheetTitle className="flex items-center justify-between">
-                    <BrandLogo variant={isScrolled ? "scroll" : "default"} size="sm" />
+                    <BrandLogo variant={showTransparent ? "default" : "scroll"} size="sm" />
                   </SheetTitle>
                 </SheetHeader>
                 <div className="mt-6 flow-root">
@@ -188,8 +193,8 @@ export function Header() {
         </div>
       </nav>
 
-      {/* Mobile: centered logo when at top — reduced pt/pb so logo sits higher and doesn't overlap hero */}
-      {!isScrolled && (
+      {/* Mobile: centered logo only on home at top */}
+      {showTransparent && (
         <div className="lg:hidden flex items-center justify-center pt-2 pb-2">
           <BrandLogo variant="default" size="md" align="center" />
         </div>

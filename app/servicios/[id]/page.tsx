@@ -7,7 +7,6 @@ import { useEffect, useState } from "react"
 import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
 import { Button } from "@/components/ui/button"
-import { Card } from "@/components/ui/card"
 import { getServiceById } from "@/lib/services"
 import { SERVICE_ASSETS } from "@/lib/service-assets"
 import { useLanguage } from "@/components/language-provider"
@@ -39,20 +38,18 @@ export default function ServicePage() {
     return <div className="min-h-screen bg-background" />
   }
 
-  const block1Title = assets?.block1Title ? (isEs ? assets.block1Title.es : assets.block1Title.en) : null
-  const block2Title = assets?.block2Title ? (isEs ? assets.block2Title.es : assets.block2Title.en) : null
-  const block1Body = assets?.block1Body ? (isEs ? assets.block1Body.es : assets.block1Body.en) : null
-  const block2Body = assets?.block2Body ? (isEs ? assets.block2Body.es : assets.block2Body.en) : null
+  const contentTitle = assets?.contentTitle ? (isEs ? assets.contentTitle.es : assets.contentTitle.en) : null
+  const contentParagraphs = assets?.contentParagraphs ? (isEs ? assets.contentParagraphs.es : assets.contentParagraphs.en) : []
 
   return (
     <main className="min-h-screen bg-background">
       <Header />
 
-      {/* Hero: mismo espaciado que Home para que el logo no se superponga */}
-      <section className="relative pt-32 md:pt-24 pb-16 overflow-hidden">
+      {/* Sección 1 — Hero: texto izquierda, imagen derecha. Padding superior generoso para que el logo no se superponga. */}
+      <section className="relative pt-40 pb-16 overflow-hidden">
         <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-gold/10 via-background to-background" />
-          <div className="absolute inset-0 bg-[linear-gradient(to_right,_rgb(255_255_255_/_0.03)_1px,_transparent_1px),linear-gradient(to_bottom,_rgb(255_255_255_/_0.03)_1px,_transparent_1px)] bg-[size:4rem_4rem]" />
+          <div className="absolute inset-0 bg-gradient-to-b from-background/80 to-background" />
+          <div className="absolute inset-0 bg-[linear-gradient(to_right,_rgb(255_255_255_/_0.02)_1px,_transparent_1px),linear-gradient(to_bottom,_rgb(255_255_255_/_0.02)_1px,_transparent_1px)] bg-[size:4rem_4rem]" />
         </div>
 
         <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
@@ -94,9 +91,9 @@ export default function ServicePage() {
         </div>
       </section>
 
-      {/* Bloque 2: imagen izquierda, texto derecha (layout Z) */}
-      {assets?.svg2 && (block1Title != null || block1Body != null) && (
-        <section className="py-16 bg-card/50">
+      {/* Sección 2 — Imagen izquierda, texto derecha (párrafos detallados) + CTA */}
+      {assets?.svg2 && (contentTitle != null || contentParagraphs.length > 0) && (
+        <section className="py-16 bg-card/30">
           <div className="mx-auto max-w-7xl px-6 lg:px-8">
             <ScrollReveal>
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
@@ -109,17 +106,19 @@ export default function ServicePage() {
                     className="w-full max-w-sm h-auto object-contain"
                   />
                 </div>
-                <div className="order-1 lg:order-2">
-                  {block1Title && (
+                <div className="order-1 lg:order-2 space-y-6">
+                  {contentTitle && (
                     <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground">
-                      {block1Title}
+                      {contentTitle}
                     </h2>
                   )}
-                  {block1Body && (
-                    <p className="mt-4 text-muted-foreground text-pretty">{block1Body}</p>
-                  )}
-                  <div className="mt-6">
-                    <Button asChild className="bg-gold text-background hover:bg-gold-light">
+                  {contentParagraphs.map((paragraph, i) => (
+                    <p key={i} className="text-muted-foreground text-pretty leading-relaxed">
+                      {paragraph}
+                    </p>
+                  ))}
+                  <div className="pt-2">
+                    <Button asChild size="lg" className="bg-gold text-background hover:bg-gold-light">
                       <Link href="/#contacto">
                         {isEs ? "Hablar con un especialista" : "Talk to a specialist"}
                       </Link>
@@ -132,104 +131,17 @@ export default function ServicePage() {
         </section>
       )}
 
-      {/* Bloque 3: texto izquierda, imagen derecha (segundo SVG si hay dos bloques de copy) */}
-      {assets?.svg1 && (block2Title != null || block2Body != null) && (
-        <section className="py-16 bg-background">
-          <div className="mx-auto max-w-7xl px-6 lg:px-8">
-            <ScrollReveal>
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
-                <div>
-                  {block2Title && (
-                    <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground">
-                      {block2Title}
-                    </h2>
-                  )}
-                  {block2Body && (
-                    <p className="mt-4 text-muted-foreground text-pretty">{block2Body}</p>
-                  )}
-                  <div className="mt-6">
-                    <Button asChild variant="outline" className="border-border">
-                      <Link href="/#contacto">
-                        {isEs ? "Solicitar propuesta" : "Request a proposal"}
-                      </Link>
-                    </Button>
-                  </div>
-                </div>
-                <div className="flex justify-center">
-                  <Image
-                    src={assets.svg1}
-                    alt=""
-                    width={400}
-                    height={300}
-                    className="w-full max-w-sm h-auto object-contain"
-                  />
-                </div>
-              </div>
-            </ScrollReveal>
-          </div>
-        </section>
-      )}
-
-      {/* Beneficios y proceso */}
-      <section className="py-16 bg-card/30">
+      {/* CTA final compacto */}
+      <section className="py-12 bg-background">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <ScrollReveal>
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-              <Card className="bg-card border-border p-6 rounded-2xl">
-                <h2 className="font-semibold text-foreground">
-                  {isEs ? "Beneficios" : "Benefits"}
-                </h2>
-                <ul className="mt-4 space-y-2 text-sm text-muted-foreground">
-                  {locale.benefits.map((f, i) => (
-                    <li key={i} className="flex gap-2">
-                      <span className="mt-1 h-1.5 w-1.5 rounded-full bg-gold flex-shrink-0" />
-                      <span>{f}</span>
-                    </li>
-                  ))}
-                </ul>
-              </Card>
-              <Card className="bg-card border-border p-6 rounded-2xl lg:col-span-2">
-                <h2 className="font-semibold text-foreground">
-                  {isEs ? "Proceso de trabajo" : "Working process"}
-                </h2>
-                <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  {locale.process.map((step, i) => (
-                    <div
-                      key={i}
-                      className="rounded-xl border border-border bg-background/40 p-4 hover:border-gold/40 transition-colors"
-                    >
-                      <p className="text-sm text-muted-foreground">
-                        <span className="text-gold font-bold mr-2">{i + 1}.</span>
-                        {step}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-              </Card>
-            </div>
-          </ScrollReveal>
-        </div>
-      </section>
-
-      {/* CTA final */}
-      <section className="py-16 bg-background">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <ScrollReveal>
-            <div className="rounded-3xl border border-border bg-card p-8 md:p-10 relative overflow-hidden text-center">
-              <div className={`absolute inset-0 bg-gradient-to-br ${service.color} opacity-20`} />
-              <div className="relative">
-                <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground">
-                  {isEs ? "¿Listo para dar el siguiente paso?" : "Ready to take the next step?"}
-                </h2>
-                <p className="mt-3 text-muted-foreground max-w-2xl mx-auto">{locale.cta}</p>
-                <div className="mt-6 flex justify-center">
-                  <Button asChild size="lg" className="bg-gold text-background hover:bg-gold-light">
-                    <Link href="/#contacto">
-                      {isEs ? "Hablar con un especialista" : "Talk to a specialist"}
-                    </Link>
-                  </Button>
-                </div>
-              </div>
+            <div className="rounded-2xl border border-border bg-card/50 p-6 md:p-8 text-center">
+              <p className="text-lg font-medium text-foreground mb-4">{locale.cta}</p>
+              <Button asChild size="lg" className="bg-gold text-background hover:bg-gold-light">
+                <Link href="/#contacto">
+                  {isEs ? "Contactar ahora" : "Contact us now"}
+                </Link>
+              </Button>
             </div>
           </ScrollReveal>
         </div>

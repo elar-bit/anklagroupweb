@@ -1,15 +1,25 @@
 "use client"
 
 import Image from "next/image"
+import { useRef, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { ArrowRight, Phone, Network, Bot } from "lucide-react"
 import Link from "next/link"
 import { useLanguage } from "@/components/language-provider"
 
 const HERO_VIDEO_SRC = "/particles.mp4"
+const VIDEO_PLAYBACK_RATE = 0.75
 
 export function Hero() {
   const { lang } = useLanguage()
+  const videoRef = useRef<HTMLVideoElement>(null)
+
+  useEffect(() => {
+    const video = videoRef.current
+    if (video) {
+      video.playbackRate = VIDEO_PLAYBACK_RATE
+    }
+  }, [])
 
   const copy =
     lang === "es"
@@ -39,6 +49,7 @@ export function Hero() {
   return (
     <section id="inicio" className="relative min-h-screen flex items-center justify-center overflow-hidden pt-32 md:pt-24">
       <video
+        ref={videoRef}
         className="absolute inset-0 w-full h-full object-cover pointer-events-none"
         muted
         autoPlay
