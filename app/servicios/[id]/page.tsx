@@ -11,6 +11,9 @@ import { getServiceById } from "@/lib/services"
 import { SERVICE_ASSETS } from "@/lib/service-assets"
 import { useLanguage } from "@/components/language-provider"
 import { ScrollReveal } from "@/components/scroll-reveal"
+import { SavingsCalculator } from "@/components/savings-calculator"
+import { ServiceFaq } from "@/components/service-faq"
+import { StickyDemoCta } from "@/components/sticky-demo-cta"
 import type { ServiceId } from "@/lib/services"
 
 export default function ServicePage() {
@@ -99,6 +102,20 @@ export default function ServicePage() {
         </div>
       </section>
 
+      {/* Calculadora de ahorro + FAQ */}
+      <section className="py-16 bg-background">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <ScrollReveal>
+              <SavingsCalculator serviceId={service.id} />
+            </ScrollReveal>
+            <ScrollReveal>
+              <ServiceFaq serviceId={service.id} />
+            </ScrollReveal>
+          </div>
+        </div>
+      </section>
+
       {/* Sección 2 — Imagen izquierda, texto derecha (párrafos detallados) + CTA */}
       {assets?.svg2 && (contentTitle != null || contentParagraphs.length > 0) && (
         <section className="py-16 bg-card/30">
@@ -163,6 +180,7 @@ export default function ServicePage() {
         </div>
       </section>
 
+      <StickyDemoCta />
       <Footer />
     </main>
   )
