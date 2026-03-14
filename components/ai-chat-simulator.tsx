@@ -41,6 +41,7 @@ export function AiChatSimulator() {
   const [step, setStep] = useState(0)
   const [inputDisabled, setInputDisabled] = useState(false)
   const bottomRef = useRef<HTMLDivElement>(null)
+  const scrollContainerRef = useRef<HTMLDivElement>(null)
   const isEs = (conversationLang ?? lang) === "es"
 
   const botReplies = isEs ? BOT_REPLIES_ES : BOT_REPLIES_EN
@@ -83,10 +84,11 @@ export function AiChatSimulator() {
     }, 2200)
   }
 
-  // Solo hacer scroll al fondo del chat cuando hay mensajes nuevos (no al cargar la página)
+  // Scroll solo dentro del contenedor del chat (no la página) cuando hay mensajes nuevos
   useEffect(() => {
-    if (messages.length > 0) {
-      bottomRef.current?.scrollIntoView({ behavior: "smooth" })
+    if (messages.length > 0 && scrollContainerRef.current) {
+      const el = scrollContainerRef.current
+      el.scrollTo({ top: el.scrollHeight, behavior: "smooth" })
     }
   }, [messages])
 
@@ -112,7 +114,7 @@ export function AiChatSimulator() {
                 {isEs ? "Asistente ANKLA (demo)" : "ANKLA Assistant (demo)"}
               </span>
             </div>
-            <div className="h-72 overflow-y-auto p-4 space-y-4 bg-background/50">
+            <div ref={scrollContainerRef} className="h-72 overflow-y-auto p-4 space-y-4 bg-background/50">
               {messages.length === 0 && (
                 <p className="text-sm text-gray-500 text-center py-4">
                   {isEs ? "Escribe un mensaje o usa la sugerencia." : "Type a message or use the suggestion."}
