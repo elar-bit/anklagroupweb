@@ -129,10 +129,10 @@ export function Contact() {
                   <div>
                     <p className="font-medium text-foreground">{t.email}</p>
                     <a
-                      href="mailto:info@anklagroup.com"
+                      href="mailto:info@anklagroupinc.com"
                       className="text-gray-200 hover:text-gold transition-colors"
                     >
-                      info@anklagroup.com
+                      info@anklagroupinc.com
                     </a>
                   </div>
                 </div>
@@ -140,14 +140,22 @@ export function Contact() {
                   <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-gold/10 flex items-center justify-center">
                     <Phone className="h-5 w-5 text-gold" />
                   </div>
-                  <div>
+                  <div className="space-y-3">
                     <p className="font-medium text-foreground">{t.phone}</p>
-                    <a
-                      href="tel:+1234567890"
-                      className="text-gray-200 hover:text-gold transition-colors"
-                    >
-                      +1 (234) 567-890
-                    </a>
+                    <div className="space-y-1.5 text-gray-200">
+                      <p>
+                        <a href="tel:+13055035859" className="hover:text-gold transition-colors">305-503-5859</a>
+                        <span className="text-gray-400"> — Miami</span>
+                      </p>
+                      <p>
+                        <a href="tel:+17875585199" className="hover:text-gold transition-colors">787-558-5199</a>
+                        <span className="text-gray-400"> — Puerto Rico</span>
+                      </p>
+                      <p>
+                        <a href="tel:+573103665600" className="hover:text-gold transition-colors">+57 310-366-5600</a>
+                        <span className="text-gray-400"> — Colombia</span>
+                      </p>
+                    </div>
                   </div>
                 </div>
                 <div className="flex items-start gap-4">
@@ -156,7 +164,7 @@ export function Contact() {
                   </div>
                   <div>
                     <p className="font-medium text-foreground">{t.location}</p>
-                    <p className="text-gray-200">Miami, Florida, USA</p>
+                    <p className="text-gray-200">Miami · Puerto Rico · Colombia</p>
                   </div>
                 </div>
               </div>
