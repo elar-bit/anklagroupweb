@@ -39,16 +39,19 @@ export function AiChatSimulator() {
   const [conversationLang, setConversationLang] = useState<"es" | "en" | null>(null)
   const [input, setInput] = useState("")
   const [step, setStep] = useState(0)
+  const [inputDisabled, setInputDisabled] = useState(false)
   const bottomRef = useRef<HTMLDivElement>(null)
   const isEs = (conversationLang ?? lang) === "es"
 
   const botReplies = isEs ? BOT_REPLIES_ES : BOT_REPLIES_EN
   const userPrompts = isEs ? USER_PROMPTS_ES : USER_PROMPTS_EN
 
-  const suggestedPrompt = step < userPrompts.length ? userPrompts[step] : null
+  const suggestedPrompt = !inputDisabled && step < userPrompts.length ? userPrompts[step] : null
+  const hasUserSent = messages.some((m) => m.role === "user")
 
   const sendMessage = (text: string) => {
-    if (!text.trim()) return
+    if (!text.trim() || inputDisabled) return
+    if (hasUserSent) return
     const trimmed = text.trim()
     setMessages((prev) => [...prev, { role: "user", text: trimmed }])
     setInput("")
@@ -65,6 +68,7 @@ export function AiChatSimulator() {
     setTimeout(() => {
       setMessages((prev) => [...prev, { role: "bot", text: reply }])
       setStep((s) => Math.min(s + 1, userPrompts.length))
+      setInputDisabled(true)
     }, 600)
   }
 
@@ -139,15 +143,21 @@ export function AiChatSimulator() {
               <input
                 type="text"
                 value={input}
-                onChange={(e) => setInput(e.target.value)}
-                onKeyDown={(e) => e.key === "Enter" && sendMessage(input)}
-                placeholder={isEs ? "Escribe aquí..." : "Type here..."}
-                className="flex-1 rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-gold/50"
+                onChange={(e) => !inputDisabled && setInput(e.target.value)}
+                onKeyDown={(e) => !inputDisabled && e.key === "Enter" && sendMessage(input)}
+                placeholder={inputDisabled ? (isEs ? "Demo finalizada" : "Demo complete") : isEs ? "Escribe aquí..." : "Type here..."}
+                disabled={inputDisabled}
+                readOnly={inputDisabled}
+                className={cn(
+                  "flex-1 rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-gold/50",
+                  inputDisabled && "cursor-not-allowed opacity-60"
+                )}
               />
               <button
                 type="button"
                 onClick={() => sendMessage(input)}
-                className="rounded-lg bg-gold text-background p-2 hover:bg-gold-light transition-colors"
+                disabled={inputDisabled}
+                className="rounded-lg bg-gold text-background p-2 hover:bg-gold-light transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                 aria-label={isEs ? "Enviar" : "Send"}
               >
                 <Send className="h-4 w-4" />
