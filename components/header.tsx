@@ -154,8 +154,8 @@ export function Header() {
           )}
         </div>
 
-        {/* Right: CTA + Language + Mobile menu (hamburger solo en móvil cuando hay scroll) */}
-        <div className="flex items-center justify-end gap-3 lg:gap-4 flex-1 min-w-0">
+        {/* Right: CTA + Language + Mobile menu. Móvil al tope: sin flex-1 para que el logo quede más centrado; switch un poco a la izquierda (pr) */}
+        <div className="flex items-center justify-end gap-3 lg:gap-4 flex-1 min-w-0 max-lg:flex-none max-lg:pr-4">
           <LangSwitch />
 
           <div className="hidden lg:block">
