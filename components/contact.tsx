@@ -1,10 +1,10 @@
 "use client"
 
-import { useState, useCallback } from "react"
+import { useState, useCallback, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
-import { Mail, Phone, MapPin, Send, CheckCircle, Calendar, Check, AlertCircle } from "lucide-react"
+import { Mail, Phone, MapPin, Send, CheckCircle, Calendar, Check, AlertCircle, ChevronRight, ChevronLeft } from "lucide-react"
 import { useLanguage } from "@/components/language-provider"
 import { cn } from "@/lib/utils"
 
@@ -52,6 +52,12 @@ const copyEn = {
   bookDemo: "Schedule a demo",
   requiredMessage: "Please fill out this field",
   invalidEmail: "Enter a valid email",
+  stepOf: "Step",
+  step1Title: "Your challenge",
+  step2Title: "Contact details",
+  step3Title: "Details & send",
+  next: "Next",
+  back: "Back",
 }
 
 const copyEs = {
@@ -96,13 +102,22 @@ const copyEs = {
   bookDemo: "Agendar demo",
   requiredMessage: "Llena este campo",
   invalidEmail: "Ingresa un email válido",
+  stepOf: "Paso",
+  step1Title: "Tu reto",
+  step2Title: "Datos de contacto",
+  step3Title: "Detalles y enviar",
+  next: "Siguiente",
+  back: "Atrás",
 }
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
+const TOTAL_STEPS = 3
+
 export function Contact() {
   const { lang } = useLanguage()
   const t = lang === "es" ? copyEs : copyEn
+  const [step, setStep] = useState(1)
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [challenge, setChallenge] = useState<string>("")
@@ -112,6 +127,14 @@ export function Contact() {
   const [service, setService] = useState("")
   const [message, setMessage] = useState("")
   const [touched, setTouched] = useState<Record<string, boolean>>({})
+  const [isNarrow, setIsNarrow] = useState(false)
+
+  useEffect(() => {
+    const check = () => setIsNarrow(window.innerWidth < 768)
+    check()
+    window.addEventListener("resize", check)
+    return () => window.removeEventListener("resize", check)
+  }, [])
 
   const nameValid = name.trim().length >= 2
   const emailValid = EMAIL_REGEX.test(email)
@@ -137,6 +160,17 @@ export function Contact() {
     { value: "other", label: t.other },
   ]
 
+  const step1Valid = !!challenge
+  const step2Valid = nameValid && emailValid
+  const canGoNext = (step === 1 && step1Valid) || (step === 2 && step2Valid)
+
+  const handleNext = () => {
+    if (step < TOTAL_STEPS) setStep((s) => s + 1)
+  }
+  const handleBack = () => {
+    if (step > 1) setStep((s) => s - 1)
+  }
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setTouched((p) => ({ ...p, name: true, email: true, message: true, challenge: true }))
@@ -145,6 +179,7 @@ export function Contact() {
     await new Promise((resolve) => setTimeout(resolve, 1000))
     setIsLoading(false)
     setIsSubmitted(true)
+    setStep(1)
     setTimeout(() => setIsSubmitted(false), 60000)
   }
 
@@ -259,171 +294,241 @@ export function Contact() {
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="space-y-3">
-                  <label className="text-sm font-medium text-foreground">{t.challengeQuestion}</label>
-                  <div className="flex flex-wrap gap-2">
-                    {challengeOptions.map((opt) => (
+                {/* Stepped progress: only on narrow (mobile) */}
+                {isNarrow && (
+                  <div className="space-y-2">
+                    <p className="text-xs font-medium text-gold">
+                      {t.stepOf} {step} {lang === "es" ? "de" : "of"} {TOTAL_STEPS}
+                    </p>
+                    <div className="flex gap-1">
+                      {[1, 2, 3].map((i) => (
+                        <div
+                          key={i}
+                          className={cn(
+                            "h-1.5 flex-1 rounded-full transition-colors",
+                            i <= step ? "bg-gold" : "bg-border"
+                          )}
+                        />
+                      ))}
+                    </div>
+                    <p className="text-sm text-foreground font-medium">
+                      {step === 1 ? t.step1Title : step === 2 ? t.step2Title : t.step3Title}
+                    </p>
+                  </div>
+                )}
+
+                {/* Step 1: Challenge — show when !isNarrow or step === 1 */}
+                {(!isNarrow || step === 1) && (
+                  <div className="space-y-3">
+                    <label className="text-sm font-medium text-foreground">{t.challengeQuestion}</label>
+                    <div className="flex flex-wrap gap-2">
+                      {challengeOptions.map((opt) => (
+                        <Button
+                          key={opt.value}
+                          type="button"
+                          variant="outline"
+                          size="sm"
+                          onClick={() => setChallenge(opt.value)}
+                          className={cn(
+                            "border transition-colors",
+                            challenge === opt.value
+                              ? "border-gold bg-gold/15 text-gold"
+                              : "border-border hover:border-gold/50"
+                          )}
+                        >
+                          {opt.label}
+                        </Button>
+                      ))}
+                    </div>
+                    {touched.challenge && !challenge && (
+                      <p className="text-xs text-destructive flex items-center gap-1">
+                        <AlertCircle className="h-3.5 w-3.5" />
+                        {t.requiredMessage}
+                      </p>
+                    )}
+                  </div>
+                )}
+
+                {/* Step 2: Name, Email, Company */}
+                {(!isNarrow || step === 2) && (
+                  <div className="space-y-4">
+                    <div className="space-y-2">
+                      <label htmlFor="name" className="text-sm font-medium text-foreground">
+                        {t.name}
+                      </label>
+                      <div className="relative">
+                        <Input
+                          id="name"
+                          name="name"
+                          value={name}
+                          onChange={(e) => setName(e.target.value)}
+                          onBlur={() => setTouched((p) => ({ ...p, name: true }))}
+                          placeholder={t.namePlaceholder}
+                          required
+                          className={cn(inputClass(nameValid, touched.name), touched.name && "pr-9")}
+                        />
+                        {touched.name && (
+                          <span className="absolute right-3 top-1/2 -translate-y-1/2">
+                            {nameValid ? (
+                              <Check className="h-4 w-4 text-emerald-500" />
+                            ) : (
+                              <AlertCircle className="h-4 w-4 text-destructive" />
+                            )}
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                    <div className="space-y-2">
+                      <label htmlFor="email" className="text-sm font-medium text-foreground">
+                        {t.email}
+                      </label>
+                      <div className="relative">
+                        <Input
+                          id="email"
+                          name="email"
+                          type="email"
+                          value={email}
+                          onChange={(e) => setEmail(e.target.value)}
+                          onBlur={() => setTouched((p) => ({ ...p, email: true }))}
+                          placeholder={t.emailPlaceholder}
+                          required
+                          className={cn(inputClass(emailValid, touched.email), touched.email && "pr-9")}
+                        />
+                        {touched.email && (
+                          <span className="absolute right-3 top-1/2 -translate-y-1/2">
+                            {emailValid ? (
+                              <Check className="h-4 w-4 text-emerald-500" />
+                            ) : (
+                              <AlertCircle className="h-4 w-4 text-destructive" />
+                            )}
+                          </span>
+                        )}
+                      </div>
+                      {touched.email && !emailValid && email && (
+                        <p className="text-xs text-destructive">{t.invalidEmail}</p>
+                      )}
+                    </div>
+                    <div className="space-y-2">
+                      <label htmlFor="company" className="text-sm font-medium text-foreground">
+                        {t.company}
+                      </label>
+                      <Input
+                        id="company"
+                        name="company"
+                        value={company}
+                        onChange={(e) => setCompany(e.target.value)}
+                        placeholder={t.companyPlaceholder}
+                        className="bg-background border-border focus:border-gold focus:ring-gold"
+                      />
+                    </div>
+                  </div>
+                )}
+
+                {/* Step 3: Service, Message, Submit */}
+                {(!isNarrow || step === 3) && (
+                  <div className="space-y-4">
+                    <div className="space-y-2">
+                      <label htmlFor="service" className="text-sm font-medium text-foreground">
+                        {t.serviceInterest}
+                      </label>
+                      <select
+                        id="service"
+                        name="service"
+                        value={service}
+                        onChange={(e) => setService(e.target.value)}
+                        className="w-full h-10 px-3 rounded-md border border-border bg-background text-foreground focus:border-gold focus:ring-gold focus:outline-none"
+                      >
+                        <option value="">{t.selectService}</option>
+                        {serviceOptions.map((opt) => (
+                          <option key={opt.value} value={opt.value}>
+                            {opt.label}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                    <div className="space-y-2">
+                      <label htmlFor="message" className="text-sm font-medium text-foreground">
+                        {t.message}
+                      </label>
+                      <div className="relative">
+                        <Textarea
+                          id="message"
+                          name="message"
+                          value={message}
+                          onChange={(e) => setMessage(e.target.value)}
+                          onBlur={() => setTouched((p) => ({ ...p, message: true }))}
+                          placeholder={t.messagePlaceholder}
+                          rows={4}
+                          required
+                          className={cn(
+                            "resize-none pr-10",
+                            inputClass(messageValid, touched.message)
+                          )}
+                        />
+                        {touched.message && (
+                          <span className="absolute right-3 top-4">
+                            {messageValid ? (
+                              <Check className="h-4 w-4 text-emerald-500" />
+                            ) : (
+                              <AlertCircle className="h-4 w-4 text-destructive" />
+                            )}
+                          </span>
+                        )}
+                      </div>
+                      {touched.message && !messageValid && message && (
+                        <p className="text-xs text-destructive">
+                          {lang === "es" ? "Mínimo 10 caracteres." : "Minimum 10 characters."}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                )}
+
+                {/* Actions: stepped on narrow, single submit on wide */}
+                {isNarrow ? (
+                  <div className="flex gap-3 pt-2">
+                    {step > 1 ? (
                       <Button
-                        key={opt.value}
                         type="button"
                         variant="outline"
-                        size="sm"
-                        onClick={() => setChallenge(opt.value)}
-                        className={cn(
-                          "border transition-colors",
-                          challenge === opt.value
-                            ? "border-gold bg-gold/15 text-gold"
-                            : "border-border hover:border-gold/50"
-                        )}
+                        onClick={handleBack}
+                        className="flex-1 border-border"
                       >
-                        {opt.label}
+                        <ChevronLeft className="h-4 w-4 mr-1" />
+                        {t.back}
                       </Button>
-                    ))}
-                  </div>
-                  {touched.challenge && !challenge && (
-                    <p className="text-xs text-destructive flex items-center gap-1">
-                      <AlertCircle className="h-3.5 w-3.5" />
-                      {t.requiredMessage}
-                    </p>
-                  )}
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <label htmlFor="name" className="text-sm font-medium text-foreground">
-                      {t.name}
-                    </label>
-                    <div className="relative">
-                      <Input
-                        id="name"
-                        name="name"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                        onBlur={() => setTouched((p) => ({ ...p, name: true }))}
-                        placeholder={t.namePlaceholder}
-                        required
-                        className={cn(inputClass(nameValid, touched.name), touched.name && "pr-9")}
-                      />
-                      {touched.name && (
-                        <span className="absolute right-3 top-1/2 -translate-y-1/2">
-                          {nameValid ? (
-                            <Check className="h-4 w-4 text-emerald-500" />
-                          ) : (
-                            <AlertCircle className="h-4 w-4 text-destructive" />
-                          )}
-                        </span>
-                      )}
-                    </div>
-                  </div>
-                  <div className="space-y-2">
-                    <label htmlFor="email" className="text-sm font-medium text-foreground">
-                      {t.email}
-                    </label>
-                    <div className="relative">
-                      <Input
-                        id="email"
-                        name="email"
-                        type="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        onBlur={() => setTouched((p) => ({ ...p, email: true }))}
-                        placeholder={t.emailPlaceholder}
-                        required
-                        className={cn(inputClass(emailValid, touched.email), touched.email && "pr-9")}
-                      />
-                      {touched.email && (
-                        <span className="absolute right-3 top-1/2 -translate-y-1/2">
-                          {emailValid ? (
-                            <Check className="h-4 w-4 text-emerald-500" />
-                          ) : (
-                            <AlertCircle className="h-4 w-4 text-destructive" />
-                          )}
-                        </span>
-                      )}
-                    </div>
-                    {touched.email && !emailValid && email && (
-                      <p className="text-xs text-destructive">{t.invalidEmail}</p>
+                    ) : (
+                      <div className="flex-1" />
+                    )}
+                    {step < TOTAL_STEPS ? (
+                      <Button
+                        type="button"
+                        onClick={handleNext}
+                        disabled={!canGoNext}
+                        className="flex-1 bg-gold text-background hover:bg-gold-light disabled:opacity-50"
+                      >
+                        {t.next}
+                        <ChevronRight className="h-4 w-4 ml-1" />
+                      </Button>
+                    ) : (
+                      <Button
+                        type="submit"
+                        disabled={isLoading || !formValid}
+                        className="flex-1 bg-gold text-background hover:bg-gold-light disabled:opacity-50"
+                      >
+                        {isLoading ? t.sending : <><span>{t.send}</span><Send className="ml-2 h-4 w-4 inline" /></>}
+                      </Button>
                     )}
                   </div>
-                </div>
-
-                <div className="space-y-2">
-                  <label htmlFor="company" className="text-sm font-medium text-foreground">
-                    {t.company}
-                  </label>
-                  <Input
-                    id="company"
-                    name="company"
-                    value={company}
-                    onChange={(e) => setCompany(e.target.value)}
-                    placeholder={t.companyPlaceholder}
-                    className="bg-background border-border focus:border-gold focus:ring-gold"
-                  />
-                </div>
-
-                <div className="space-y-2">
-                  <label htmlFor="service" className="text-sm font-medium text-foreground">
-                    {t.serviceInterest}
-                  </label>
-                  <select
-                    id="service"
-                    name="service"
-                    value={service}
-                    onChange={(e) => setService(e.target.value)}
-                    className="w-full h-10 px-3 rounded-md border border-border bg-background text-foreground focus:border-gold focus:ring-gold focus:outline-none"
+                ) : (
+                  <Button
+                    type="submit"
+                    disabled={isLoading || !formValid}
+                    className="w-full bg-gold text-background hover:bg-gold-light disabled:opacity-50 h-11 font-medium"
                   >
-                    <option value="">{t.selectService}</option>
-                    {serviceOptions.map((opt) => (
-                      <option key={opt.value} value={opt.value}>
-                        {opt.label}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-
-                <div className="space-y-2">
-                  <label htmlFor="message" className="text-sm font-medium text-foreground">
-                    {t.message}
-                  </label>
-                  <div className="relative">
-                    <Textarea
-                      id="message"
-                      name="message"
-                      value={message}
-                      onChange={(e) => setMessage(e.target.value)}
-                      onBlur={() => setTouched((p) => ({ ...p, message: true }))}
-                      placeholder={t.messagePlaceholder}
-                      rows={4}
-                      required
-                      className={cn(
-                        "resize-none pr-10",
-                        inputClass(messageValid, touched.message)
-                      )}
-                    />
-                    {touched.message && (
-                      <span className="absolute right-3 top-4">
-                        {messageValid ? (
-                          <Check className="h-4 w-4 text-emerald-500" />
-                        ) : (
-                          <AlertCircle className="h-4 w-4 text-destructive" />
-                        )}
-                      </span>
-                    )}
-                  </div>
-                  {touched.message && !messageValid && message && (
-                    <p className="text-xs text-destructive">
-                      {lang === "es" ? "Mínimo 10 caracteres." : "Minimum 10 characters."}
-                    </p>
-                  )}
-                </div>
-
-                <Button
-                  type="submit"
-                  disabled={isLoading || !formValid}
-                  className="w-full bg-gold text-background hover:bg-gold-light disabled:opacity-50 h-11 font-medium"
-                >
-                  {isLoading ? t.sending : <><span>{t.send}</span><Send className="ml-2 h-4 w-4 inline" /></>}
-                </Button>
+                    {isLoading ? t.sending : <><span>{t.send}</span><Send className="ml-2 h-4 w-4 inline" /></>}
+                  </Button>
+                )}
               </form>
             )}
           </div>

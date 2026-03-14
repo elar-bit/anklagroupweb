@@ -111,8 +111,14 @@ export function Hero() {
               </div>
             </div>
           </div>
-          <div className="flex items-center justify-center order-1 lg:order-2">
-            <Image src="/home1.svg" alt="" width={480} height={360} className="w-full max-w-md h-auto object-contain" />
+          <div className="flex items-center justify-center order-1 lg:order-2 rounded-2xl overflow-hidden border border-white/10 shadow-2xl">
+            <Image
+              src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&q=80"
+              alt=""
+              width={480}
+              height={360}
+              className="w-full max-w-md h-auto object-cover"
+            />
           </div>
         </div>
       </div>

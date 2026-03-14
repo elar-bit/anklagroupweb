@@ -88,10 +88,8 @@ export function Header() {
 
   return (
     <header
-      className={`fixed top-0 left-0 w-full z-[9999] border-b transition-all duration-300 ${
-        showTransparent
-          ? "bg-transparent border-transparent"
-          : "bg-background/95 backdrop-blur-md border-border"
+      className={`fixed top-0 left-0 w-full z-[9999] border-b border-white/10 backdrop-blur-xl transition-all duration-300 ${
+        showTransparent ? "bg-background/30" : "bg-background/70"
       }`}
     >
       {/* Nav: compact on non-home or when scrolled; expanded only on home at top */}

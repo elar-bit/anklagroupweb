@@ -71,13 +71,13 @@ export function About() {
           </div>
           <div className="relative">
             <div className="aspect-square rounded-2xl bg-gradient-to-br from-gold/20 via-gold/10 to-transparent p-8 lg:p-12">
-              <div className="w-full h-full rounded-xl bg-background/50 backdrop-blur-sm border border-border flex flex-col items-center justify-center text-center gap-4 py-4">
+              <div className="w-full h-full rounded-xl bg-background/50 backdrop-blur-sm border border-border flex flex-col items-center justify-center text-center gap-4 py-4 overflow-hidden">
                 <Image
-                  src="/trust.svg"
+                  src="https://images.unsplash.com/photo-1557804506-669a67965ba0?w=600&q=80"
                   alt=""
-                  width={180}
-                  height={120}
-                  className="w-full max-w-[160px] sm:max-w-[200px] h-auto object-contain object-center shrink-0"
+                  width={320}
+                  height={240}
+                  className="w-full max-w-[200px] sm:max-w-[240px] h-32 sm:h-40 object-cover object-center rounded-lg shrink-0"
                 />
                 <div className="shrink-0">
                   <h3 className="text-2xl font-bold text-foreground mb-1">{t.tagline}</h3>
