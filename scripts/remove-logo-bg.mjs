@@ -1,6 +1,7 @@
 /**
  * Removes dark background from logo PNG: pixels below luminance threshold become transparent.
- * Run: node scripts/remove-logo-bg.mjs
+ * Run: node scripts/remove-logo-bg.mjs [basename]
+ *   basename: "ankla-logo" (default) or "ankla-logo-scroll"
  */
 import { createReadStream, createWriteStream, copyFileSync } from "fs";
 import { join, dirname } from "path";
@@ -9,9 +10,11 @@ import { PNG } from "pngjs";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const root = join(__dirname, "..");
-const inputPath = join(root, "public", "ankla-logo.png");
-const outputPath = join(root, "public", "ankla-logo.png");
-const backupPath = join(root, "public", "ankla-logo-original.png");
+const basename = process.argv[2] || "ankla-logo";
+const filename = basename.endsWith(".png") ? basename : `${basename}.png`;
+const inputPath = join(root, "public", filename);
+const outputPath = join(root, "public", filename);
+const backupPath = join(root, "public", basename.replace(".png", "") + "-original.png");
 
 // Luminance threshold: pixels darker than this become transparent (0–255)
 const LUMINANCE_THRESHOLD = 85;

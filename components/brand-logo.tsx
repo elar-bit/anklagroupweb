@@ -3,10 +3,10 @@
 import Image from "next/image"
 import Link from "next/link"
 
-// Centralized logo paths — ?v=2 after removing logo background; bump version after logo updates
+// Centralized logo paths — bump ?v= after logo updates (v=3: scroll sin fondo)
 const LOGO_SRC = {
   default: "/ankla-logo.png?v=2",
-  scroll: "/ankla-logo-scroll.png?v=2",
+  scroll: "/ankla-logo-scroll.png?v=3",
 } as const
 
 type BrandLogoProps = {
