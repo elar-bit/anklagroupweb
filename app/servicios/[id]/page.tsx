@@ -18,6 +18,7 @@ import { ServiceExpectedResults } from "@/components/service-expected-results"
 import { ServiceCtaExpertBanner } from "@/components/service-cta-expert-banner"
 import { ServiceFaqSection } from "@/components/service-faq-section"
 import { ServiceWhyAnkla } from "@/components/service-why-ankla"
+import { ServiceCalculator } from "@/components/service-calculator"
 import { ServiceInteractive } from "@/components/service-interactive"
 import { StickyDemoCta } from "@/components/sticky-demo-cta"
 import type { ServiceId } from "@/lib/services"
@@ -125,6 +126,15 @@ export default function ServicePage() {
       {persuasion && (
         <ServiceExpectedResults results={persuasion.expectedResults} />
       )}
+
+      {/* Calculadora de impacto financiero */}
+      <section className="py-16 sm:py-24 bg-background">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          <ScrollReveal className="max-w-lg mx-auto">
+            <ServiceCalculator serviceId={service.id} />
+          </ScrollReveal>
+        </div>
+      </section>
 
       {/* Preguntas frecuentes */}
       <ServiceFaqSection serviceId={service.id} />
