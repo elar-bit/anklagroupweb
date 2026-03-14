@@ -104,18 +104,24 @@ export function Header() {
           : "bg-background/95 backdrop-blur-md border-border"
       }`}
     >
-      {/* Nav: compact on non-home or when scrolled; expanded only on home at top (desktop) */}
+      {/* Nav: compact on non-home or when scrolled; expanded only on home at top (desktop). Móvil: al tope solo logo default + idioma; al scroll logo scroll + idioma + menú */}
       <nav
         className={`relative mx-auto flex max-w-7xl items-center pl-6 pr-8 lg:px-8 ${
           showTransparent ? "py-2 min-h-0 lg:min-h-[180px] lg:py-6" : "py-4"
         }`}
       >
-        {/* Left: scroll logo (when compact) o spacer en desktop cuando expanded */}
+        {/* Left/Center: desktop = scroll logo o spacer; móvil al tope = logo default centrado; móvil al scroll = logo scroll */}
         <div className={`flex-1 flex items-center min-w-0 justify-start ${!showTransparent ? "min-w-[140px] lg:min-w-0" : ""}`}>
           {!showTransparent ? (
             <BrandLogo variant="scroll" size="md" className="shrink-0" />
           ) : (
-            <div className="hidden lg:block flex-1 min-w-0" aria-hidden />
+            <>
+              <div className="hidden lg:block flex-1 min-w-0" aria-hidden />
+              {/* Móvil al tope: solo logo default (ankla-logo) centrado en la barra */}
+              <div className="lg:hidden flex-1 flex justify-center min-w-0">
+                <BrandLogo variant="default" size="md" align="center" />
+              </div>
+            </>
           )}
         </div>
 
@@ -146,7 +152,7 @@ export function Header() {
           )}
         </div>
 
-        {/* Right: CTA + Language + Mobile menu */}
+        {/* Right: CTA + Language + Mobile menu (hamburger solo en móvil cuando hay scroll) */}
         <div className="flex items-center justify-end gap-3 lg:gap-4 flex-1 min-w-0">
           <LangSwitch />
 
@@ -156,6 +162,8 @@ export function Header() {
             </Button>
           </div>
 
+          {/* Móvil: barras del menú solo al hacer scroll; al tope no se muestran */}
+          {!showTransparent && (
           <div className="flex lg:hidden shrink-0 ml-1">
             <Sheet>
               <SheetTrigger asChild>
@@ -201,15 +209,9 @@ export function Header() {
               </SheetContent>
             </Sheet>
           </div>
+          )}
         </div>
       </nav>
-
-      {/* Mobile: logo centrado solo en home al tope; al hacer scroll no se muestra (header compacto con scroll logo) */}
-      {showTransparent && (
-        <div className="lg:hidden flex items-center justify-center pt-2 pb-2">
-          <BrandLogo variant="default" size="md" align="center" />
-        </div>
-      )}
     </header>
   )
 }
