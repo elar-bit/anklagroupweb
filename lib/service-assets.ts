@@ -1,11 +1,5 @@
 import type { ServiceId } from "./services"
 
-// High-quality Unsplash: server infrastructure + modern teams
-const IMG_SERVER =
-  "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&q=80"
-const IMG_TEAM =
-  "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&q=80"
-
 export type ServiceAssets = {
   svg1: string
   svg2: string
@@ -16,8 +10,8 @@ export type ServiceAssets = {
 
 export const SERVICE_ASSETS: Record<ServiceId, ServiceAssets> = {
   "hosted-pbx": {
-    svg1: IMG_SERVER,
-    svg2: IMG_TEAM,
+    svg1: "/hosted1.svg",
+    svg2: "/hosted2.svg",
     contentTitle: { es: "Telefonía IP, escalabilidad y ahorro estratégico", en: "IP telephony, scalability and strategic savings" },
     contentParagraphs: {
       es: [
@@ -33,8 +27,8 @@ export const SERVICE_ASSETS: Record<ServiceId, ServiceAssets> = {
     },
   },
   lan: {
-    svg1: IMG_SERVER,
-    svg2: IMG_TEAM,
+    svg1: "/network1.svg",
+    svg2: "/network2.svg",
     contentTitle: { es: "Robustez, seguridad y baja latencia", en: "Robustness, security and low latency" },
     contentParagraphs: {
       es: [
@@ -50,8 +44,8 @@ export const SERVICE_ASSETS: Record<ServiceId, ServiceAssets> = {
     },
   },
   support: {
-    svg1: IMG_SERVER,
-    svg2: IMG_TEAM,
+    svg1: "/support1.svg",
+    svg2: "/support2.svg",
     contentTitle: { es: "Mantenimiento proactivo, 24/7 y continuidad", en: "Proactive maintenance, 24/7 and continuity" },
     contentParagraphs: {
       es: [
@@ -67,8 +61,8 @@ export const SERVICE_ASSETS: Record<ServiceId, ServiceAssets> = {
     },
   },
   inbound: {
-    svg1: IMG_SERVER,
-    svg2: IMG_TEAM,
+    svg1: "/inbound1.svg",
+    svg2: "/inbound2.svg",
     contentTitle: { es: "CX, satisfacción del cliente y resolución a la primera", en: "CX, customer satisfaction and first-contact resolution" },
     contentParagraphs: {
       es: [
@@ -84,8 +78,8 @@ export const SERVICE_ASSETS: Record<ServiceId, ServiceAssets> = {
     },
   },
   outbound: {
-    svg1: IMG_SERVER,
-    svg2: IMG_TEAM,
+    svg1: "/outbound1.svg",
+    svg2: "/outbound2.svg",
     contentTitle: { es: "Prospección inteligente, ventas y alcance masivo", en: "Smart prospecting, sales and mass reach" },
     contentParagraphs: {
       es: [
@@ -101,8 +95,8 @@ export const SERVICE_ASSETS: Record<ServiceId, ServiceAssets> = {
     },
   },
   "ai-agents": {
-    svg1: IMG_SERVER,
-    svg2: IMG_TEAM,
+    svg1: "/ia1.svg",
+    svg2: "/ia2.svg",
     contentTitle: { es: "Automatización 24/7 y reducción de carga operativa", en: "24/7 automation and reduced operational load" },
     contentParagraphs: {
       es: [
@@ -118,8 +112,8 @@ export const SERVICE_ASSETS: Record<ServiceId, ServiceAssets> = {
     },
   },
   omnichannel: {
-    svg1: IMG_SERVER,
-    svg2: IMG_TEAM,
+    svg1: "/omni.svg",
+    svg2: "/omni2.svg",
     contentTitle: { es: "Experiencia unificada (WhatsApp, Web, RRSS) y personalización", en: "Unified experience (WhatsApp, Web, social) and personalization" },
     contentParagraphs: {
       es: [
