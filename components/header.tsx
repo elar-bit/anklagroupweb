@@ -96,7 +96,7 @@ export function Header() {
     >
       {/* Nav: compact on non-home or when scrolled; expanded only on home at top */}
       <nav
-        className={`relative mx-auto flex max-w-7xl items-center px-6 lg:px-8 ${
+        className={`relative mx-auto flex max-w-7xl items-center pl-6 pr-8 lg:px-8 ${
           showTransparent ? "py-2 min-h-0 lg:min-h-[180px] lg:py-6" : "py-4"
         }`}
       >
@@ -146,12 +146,13 @@ export function Header() {
             </Button>
           </div>
 
-          <div className="flex lg:hidden">
+          <div className="flex lg:hidden shrink-0 ml-1">
             <Sheet>
               <SheetTrigger asChild>
                 <button
                   type="button"
-                  className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-foreground"
+                  className="inline-flex items-center justify-center rounded-md p-3 text-foreground touch-manipulation"
+                  aria-label={labels.openMenu}
                 >
                   <span className="sr-only">{labels.openMenu}</span>
                   <Menu className="h-6 w-6" aria-hidden="true" />
