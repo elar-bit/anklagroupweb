@@ -52,6 +52,7 @@ export function Header() {
   const [isScrolled, setIsScrolled] = useState(false)
 
   const isHome = pathname === "/"
+  // On mobile always use compact header so it stays visible when scrolling; desktop keeps expand/collapse
   const showTransparent = isHome && !isScrolled
 
   useEffect(() => {
@@ -94,16 +95,23 @@ export function Header() {
           : "bg-background/95 backdrop-blur-md border-border"
       }`}
     >
-      {/* Nav: compact on non-home or when scrolled; expanded only on home at top */}
+      {/* Nav: on mobile always compact (single row); on desktop expand only on home at top */}
       <nav
         className={`relative mx-auto flex max-w-7xl items-center pl-6 pr-8 lg:px-8 ${
           showTransparent ? "py-2 min-h-0 lg:min-h-[180px] lg:py-6" : "py-4"
         }`}
       >
-        {/* Left: scroll logo (when compact) or empty spacer */}
-        <div className={`flex-1 flex items-center min-w-0 justify-start ${!showTransparent ? "min-w-[140px] lg:min-w-0" : ""}`}>
+        {/* Left: logo — mobile always compact; desktop only when scrolled/not home */}
+        <div className="flex-1 flex items-center min-w-0 justify-start min-w-[100px] sm:min-w-[140px] lg:min-w-0">
+          {/* Mobile: always show logo so header stays one row and visible */}
+          <div className="flex lg:hidden shrink-0">
+            <BrandLogo variant="scroll" size="md" />
+          </div>
+          {/* Desktop: logo only when compact */}
           {!showTransparent ? (
-            <BrandLogo variant="scroll" size="md" className="shrink-0" />
+            <div className="hidden lg:block shrink-0">
+              <BrandLogo variant="scroll" size="md" />
+            </div>
           ) : (
             <div className="hidden lg:block flex-1 min-w-0" aria-hidden />
           )}
@@ -158,13 +166,13 @@ export function Header() {
                   <Menu className="h-6 w-6" aria-hidden="true" />
                 </button>
               </SheetTrigger>
-              <SheetContent className="w-full sm:max-w-sm">
-                <SheetHeader className="pb-2">
-                  <SheetTitle className="flex items-center justify-between">
-                    <BrandLogo variant={showTransparent ? "default" : "scroll"} size="sm" />
+              <SheetContent className="w-full sm:max-w-sm flex flex-col p-0">
+                <SheetHeader className="shrink-0 px-4 pr-12 pt-4 pb-3 border-b border-border">
+                  <SheetTitle className="flex items-center justify-start">
+                    <BrandLogo variant="scroll" size="sm" className="!h-8 !w-[110px]" />
                   </SheetTitle>
                 </SheetHeader>
-                <div className="mt-6 flow-root">
+                <div className="flex-1 min-h-0 overflow-y-auto px-4 py-4">
                   <div className="mb-4">
                     <LangSwitch />
                   </div>
@@ -173,7 +181,7 @@ export function Header() {
                       <SheetClose asChild key={item.key}>
                         <Link
                           href={item.href}
-                          className="rounded-lg px-3 py-2 text-base font-medium text-foreground hover:bg-secondary transition-colors block"
+                          className="rounded-lg px-3 py-2.5 text-base font-medium text-foreground hover:bg-secondary transition-colors block"
                         >
                           {labels[item.key]}
                         </Link>
@@ -193,13 +201,6 @@ export function Header() {
           </div>
         </div>
       </nav>
-
-      {/* Mobile: centered logo only on home at top */}
-      {showTransparent && (
-        <div className="lg:hidden flex items-center justify-center pt-2 pb-2">
-          <BrandLogo variant="default" size="md" align="center" />
-        </div>
-      )}
     </header>
   )
 }
