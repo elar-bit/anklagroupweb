@@ -96,18 +96,20 @@ export function Header() {
     </div>
   )
 
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+
   return (
     <header
       className={`fixed top-0 left-0 w-full z-[9999] border-b transition-all duration-300 ${
         showTransparent
           ? "bg-transparent border-transparent"
           : "bg-background/95 backdrop-blur-md border-border"
-      } ${!showTransparent ? "lg:pt-0 pt-[env(safe-area-inset-top,0px)]" : ""}`}
+      }`}
     >
       {/* Nav: compact on non-home or when scrolled; expanded only on home at top (desktop). Móvil: al tope solo logo default + idioma; al scroll logo scroll + idioma + menú */}
       <nav
         className={`relative mx-auto flex max-w-7xl items-center pl-6 pr-8 lg:px-8 ${
-          showTransparent ? "py-2 min-h-0 lg:min-h-[180px] lg:py-6" : "py-4 lg:py-4 min-h-[52px] lg:min-h-0"
+          showTransparent ? "py-2 min-h-0 lg:min-h-[180px] lg:py-6" : "py-4"
         }`}
       >
         {/* Left/Center: desktop = scroll logo o spacer; móvil al tope = logo default centrado; móvil al scroll = logo scroll */}
@@ -115,16 +117,15 @@ export function Header() {
           {!showTransparent ? (
             <BrandLogo variant="scroll" size="md" className="shrink-0" />
           ) : (
-            <div className="hidden lg:block flex-1 min-w-0" aria-hidden />
+            <>
+              <div className="hidden lg:block flex-1 min-w-0" aria-hidden />
+              {/* Móvil al tope: logo default centrado en la barra */}
+              <div className="lg:hidden flex-1 flex justify-center min-w-0">
+                <BrandLogo variant="default" size="md" align="center" />
+              </div>
+            </>
           )}
         </div>
-
-        {/* Móvil al tope: logo default centrado en toda la barra */}
-        {showTransparent && (
-          <div className="lg:hidden absolute inset-0 flex items-center justify-center pointer-events-none">
-            <BrandLogo variant="default" size="md" align="center" />
-          </div>
-        )}
 
         {/* Center: main logo (desktop, only on home at top) */}
         {showTransparent && (
@@ -153,8 +154,8 @@ export function Header() {
           )}
         </div>
 
-        {/* Right: CTA + Language + Mobile menu (hamburger solo en móvil cuando hay scroll). Móvil al tope: switch más a la izquierda (mr) */}
-        <div className="flex items-center justify-end gap-3 lg:gap-4 flex-1 min-w-0 lg:mr-0 mr-6">
+        {/* Right: CTA + Language + Mobile menu (hamburger solo en móvil cuando hay scroll) */}
+        <div className="flex items-center justify-end gap-3 lg:gap-4 flex-1 min-w-0">
           <LangSwitch />
 
           <div className="hidden lg:block">
@@ -163,21 +164,25 @@ export function Header() {
             </Button>
           </div>
 
-          {/* Móvil: barras del menú solo al hacer scroll; cerrar también con click en hamburger (trigger). Sin switch duplicado dentro. */}
+          {/* Móvil: menú con estado controlado para poder cerrar con click en hamburger; sin switch duplicado dentro */}
           {!showTransparent && (
-          <div className="flex lg:hidden shrink-0 ml-1 relative z-[10000]">
-            <Sheet>
+          <div className="flex lg:hidden shrink-0 ml-1">
+            <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
               <SheetTrigger asChild>
                 <button
                   type="button"
                   className="inline-flex items-center justify-center rounded-md p-3 text-foreground touch-manipulation"
                   aria-label={labels.openMenu}
+                  aria-expanded={mobileMenuOpen}
                 >
                   <span className="sr-only">{labels.openMenu}</span>
                   <Menu className="h-6 w-6" aria-hidden="true" />
                 </button>
               </SheetTrigger>
-              <SheetContent className="w-full sm:max-w-sm">
+              <SheetContent
+                className="w-full sm:max-w-sm"
+                overlayClassName="max-lg:top-14 max-lg:left-0 max-lg:right-0 max-lg:bottom-0"
+              >
                 <SheetHeader className="pb-2">
                   <SheetTitle className="flex items-center justify-between">
                     <BrandLogo variant="scroll" size="sm" />
@@ -190,6 +195,7 @@ export function Header() {
                         <Link
                           href={item.href}
                           className="rounded-lg px-3 py-2 text-base font-medium text-foreground hover:bg-secondary transition-colors block"
+                          onClick={() => setMobileMenuOpen(false)}
                         >
                           {labels[item.key]}
                         </Link>
@@ -199,7 +205,7 @@ export function Header() {
                   <div className="mt-5">
                     <SheetClose asChild>
                       <Button asChild className="w-full bg-gold text-background hover:bg-gold-light">
-                        <Link href="/#contacto">{labels.contactUs}</Link>
+                        <Link href="/#contacto" onClick={() => setMobileMenuOpen(false)}>{labels.contactUs}</Link>
                       </Button>
                     </SheetClose>
                   </div>
