@@ -47,8 +47,11 @@ export function AiChatSimulator() {
     }, 600)
   }
 
+  // Solo hacer scroll al fondo del chat cuando hay mensajes nuevos (no al cargar la página)
   useEffect(() => {
-    bottomRef.current?.scrollIntoView({ behavior: "smooth" })
+    if (messages.length > 0) {
+      bottomRef.current?.scrollIntoView({ behavior: "smooth" })
+    }
   }, [messages])
 
   const benefit =
