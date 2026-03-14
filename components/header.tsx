@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { Menu } from "lucide-react"
+import { Menu, X } from "lucide-react"
 import { useEffect, useState } from "react"
 import { BrandLogo } from "@/components/brand-logo"
 import { Button } from "@/components/ui/button"
@@ -35,6 +35,7 @@ const labelsEn: Record<string, string> = {
   blog: "Blog",
   contactUs: "Contact us",
   openMenu: "Open menu",
+  closeMenu: "Close",
 }
 
 const labelsEs: Record<string, string> = {
@@ -45,6 +46,7 @@ const labelsEs: Record<string, string> = {
   blog: "Blog",
   contactUs: "Contáctanos",
   openMenu: "Abrir menú",
+  closeMenu: "Cerrar",
 }
 
 export function Header() {
@@ -184,10 +186,21 @@ export function Header() {
                 className="w-full sm:max-w-sm"
                 overlayClassName="max-lg:top-14 max-lg:left-0 max-lg:right-0 max-lg:bottom-0"
               >
-                <SheetHeader className="pb-2">
-                  <SheetTitle className="flex items-center justify-between">
+                <SheetHeader className="pb-2 flex flex-row items-center justify-between gap-2">
+                  <SheetTitle className="flex items-center justify-start flex-1 min-w-0">
                     <BrandLogo variant="scroll" size="sm" />
                   </SheetTitle>
+                  <SheetClose asChild>
+                    <button
+                      type="button"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="flex items-center gap-2 rounded-lg px-3 py-2.5 text-sm font-medium text-foreground hover:bg-secondary transition-colors touch-manipulation"
+                      aria-label={labels.closeMenu}
+                    >
+                      <X className="h-5 w-5" />
+                      <span>{labels.closeMenu}</span>
+                    </button>
+                  </SheetClose>
                 </SheetHeader>
                 <div className="mt-6 flow-root">
                   <div className="grid gap-1">
