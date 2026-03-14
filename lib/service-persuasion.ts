@@ -39,17 +39,17 @@ const persuasion: Record<ServiceId, Record<Lang, PersuasionData>> = {
         {
           icon: DollarSign,
           title: "Facturas telefónicas altísimas",
-          description: "El costo de mantenimiento, hardware y líneas tradicionales come tu presupuesto sin aportar flexibilidad.",
+          description: "El costo de mantenimiento y líneas tradicionales come su presupuesto sin dar flexibilidad ni movilidad.",
         },
         {
           icon: Radio,
-          title: "Sistemas rígidos que no permiten teletrabajo",
-          description: "Tu equipo no puede atender desde casa o otra sede con la misma calidad ni el mismo número.",
+          title: "Falta de movilidad",
+          description: "Su equipo no puede atender desde casa o otra sede con la misma extensión ni la misma calidad.",
         },
         {
           icon: PhoneOff,
-          title: "Pérdida de llamadas por mala configuración",
-          description: "IVR confuso, colas que no reparten bien o fallos que hacen que los clientes cuelguen y busquen a la competencia.",
+          title: "Sistemas que se quedan \"mudos\" si falla la oficina",
+          description: "Si se cae internet o la sede, las llamadas se pierden y los clientes buscan a la competencia.",
         },
       ],
       solutions: [
@@ -108,18 +108,18 @@ const persuasion: Record<ServiceId, Record<Lang, PersuasionData>> = {
       problems: [
         {
           icon: WifiOff,
-          title: "Caídas de internet que detienen la operación",
-          description: "Cuando la red falla, ventas, soporte y logística se paralizan. Cada minuto cuenta.",
+          title: "Wi-Fi que se cae en reuniones importantes",
+          description: "La red falla cuando más la necesita: ventas, soporte y logística se paralizan.",
         },
         {
           icon: Radio,
-          title: "Zonas muertas de Wi-Fi en bodega y oficina",
-          description: "Puntos ciegos donde los dispositivos no conectan o la señal es inestable.",
+          title: "Baja velocidad y zonas muertas",
+          description: "Puntos ciegos en bodega u oficina donde los dispositivos no conectan o la señal es inestable.",
         },
         {
           icon: ShieldAlert,
-          title: "Vulnerabilidades que exponen datos",
-          description: "Redes planas sin segmentación donde un acceso comprometido pone en riesgo todo.",
+          title: "Falta de seguridad en la red de invitados",
+          description: "Sin segmentación, un virus en una laptop o un invitado puede afectar sus servidores y datos sensibles.",
         },
       ],
       solutions: [
@@ -174,18 +174,18 @@ const persuasion: Record<ServiceId, Record<Lang, PersuasionData>> = {
       problems: [
         {
           icon: ServerCrash,
-          title: "Algo se rompe y no tienes a quién llamar",
-          description: "El estrés de depender de un técnico interno sobrecargado o de un proveedor que tarda horas en responder.",
+          title: "Modo apagafuegos: todo es reactivo",
+          description: "Algo se rompe y no hay a quién llamar, o el técnico tarda horas en responder.",
         },
         {
           icon: Clock,
-          title: "Respuestas que tardan horas o días",
-          description: "Tickets que se acumulan y problemas que escalan porque no hay un equipo dedicado ni SLA claro.",
+          title: "Equipos lentos y backups que no funcionan",
+          description: "No sabe si sus respaldos sirven ni si el firewall está actualizado. Un fallo puede costarle todo.",
         },
         {
           icon: Lock,
-          title: "Backups y seguridad inciertos",
-          description: "No sabes si tus respaldos funcionan ni si tu firewall está actualizado. Un solo incidente puede costarte todo.",
+          title: "Falta un experto disponible 24/7",
+          description: "Tickets que se acumulan y nadie dedicado para emergencias críticas o soporte preventivo.",
         },
       ],
       solutions: [

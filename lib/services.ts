@@ -45,7 +45,7 @@ export const services: Service[] = [
         title: "Telefonía en la Nube",
         subtitle: "Hosted PBX para empresas",
         intro:
-          "Diseñamos y operamos centrales telefónicas en la nube que conectan a tus equipos, sucursales y clientes en un solo sistema, sin invertir en hardware ni mantenimiento complejo.",
+          "Reduzca costos hasta un 60% y opere desde cualquier lugar: misma extensión en oficina, celular o casa. Sin facturas altas ni sistemas que se queden mudos si falla la oficina.",
         benefits: [
           "Reduce hasta un 60 % los costos frente a PBX tradicional.",
           "Escala extensiones, colas y IVR en minutos, sin visitas técnicas.",
@@ -64,7 +64,7 @@ export const services: Service[] = [
         title: "Cloud Telephony",
         subtitle: "Hosted PBX for business",
         intro:
-          "We design and operate cloud PBX platforms that connect teams, branches and customers in a single system, without on‑premise hardware or complex maintenance.",
+          "Cut costs by up to 60% and run from anywhere: same extension at the office, on your cell, or at home. No sky-high bills or systems that go silent when the office fails.",
         benefits: [
           "Cut telephony costs by up to 60% versus traditional PBX.",
           "Scale extensions, queues and IVR in minutes without site visits.",
@@ -90,7 +90,7 @@ export const services: Service[] = [
         title: "Redes LAN Empresariales",
         subtitle: "Diseño, instalación y optimización",
         intro:
-          "Construimos infraestructuras de red cableadas e inalámbricas preparadas para voz, datos, video y dispositivos IoT, con foco en rendimiento, seguridad y escalabilidad.",
+          "Elimine el Wi‑Fi que se cae en reuniones importantes, la baja velocidad y la inseguridad en la red de invitados. Red estable, rápida y segmentada para proteger sus datos.",
         benefits: [
           "Cobertura estable en oficinas, bodegas y espacios críticos.",
           "Segmentación por VLAN para separar invitados, voz, cámaras e infraestructura.",
@@ -109,7 +109,7 @@ export const services: Service[] = [
         title: "Enterprise LAN Networks",
         subtitle: "Design, deployment and optimization",
         intro:
-          "We build wired and wireless network infrastructures ready for voice, data, video and IoT, with a strong focus on performance, security and scalability.",
+          "Stop Wi‑Fi dropping in key meetings, slow speeds and an unsafe guest network. Get a stable, fast and segmented network that protects your data.",
         benefits: [
           "Stable coverage across offices, warehouses and critical areas.",
           "VLAN segmentation to separate guests, voice, cameras and core systems.",
@@ -135,7 +135,7 @@ export const services: Service[] = [
         title: "Soporte Técnico Gestionado",
         subtitle: "Computadores, servidores y core de TI",
         intro:
-          "Operamos el día a día de tu infraestructura tecnológica con un equipo que previene incidentes, responde rápido y documenta cada cambio.",
+          "Deje atrás el modo apagafuegos: equipos lentos, backups que no funcionan y nadie disponible 24/7. Tranquilidad con un experto que previene fallos y responde cuando importa.",
         benefits: [
           "Mayor disponibilidad de servicios críticos gracias a mantenimiento preventivo.",
           "Menos tickets repetitivos con estándares y automatización.",
@@ -154,7 +154,7 @@ export const services: Service[] = [
         title: "Managed IT Support",
         subtitle: "Endpoints, servers and core IT",
         intro:
-          "We operate your day‑to‑day IT infrastructure with a team focused on preventing incidents, responding fast and documenting every change.",
+          "Stop firefighting: slow machines, backups that don't work and no one available 24/7. Peace of mind with an expert who prevents failures and responds when it matters.",
         benefits: [
           "Higher availability for critical services thanks to preventive maintenance.",
           "Fewer repetitive tickets through standards and automation.",
@@ -180,7 +180,7 @@ export const services: Service[] = [
         title: "Campañas Inbound",
         subtitle: "Contact center de servicio",
         intro:
-          "Creamos y operamos equipos de atención al cliente que responden rápido, resuelven en el primer contacto y representan tu marca con consistencia.",
+          "Acabe con las quejas por mala atención, los tiempos de espera largos y la falta de métricas. Reciba reportes de NPS, CSAT y tiempo de respuesta en tiempo real.",
         benefits: [
           "Mejores tiempos de respuesta y resolución en el primer contacto.",
           "Guiones y playbooks alineados a tu forma de atender.",
@@ -199,7 +199,7 @@ export const services: Service[] = [
         title: "Inbound Campaigns",
         subtitle: "Service contact center",
         intro:
-          "We build and run customer service teams that respond quickly, solve on first contact and represent your brand consistently.",
+          "End complaints about poor service, long wait times and missing metrics. Get NPS, CSAT and response-time reports in real time.",
         benefits: [
           "Improved response and first‑contact resolution times.",
           "Scripts and playbooks fully aligned with your service vision.",
@@ -225,7 +225,7 @@ export const services: Service[] = [
         title: "Campañas Outbound",
         subtitle: "Telemarketing y generación de demanda",
         intro:
-          "Diseñamos campañas de salida que combinan datos, guiones y tecnología para maximizar contactos efectivos y conversiones.",
+          "Deje de desperdiciar bases de datos, agentes que no cierran y llamadas sin trazabilidad. Sincronice cada resultado con su CRM y convierta más leads en ventas.",
         benefits: [
           "Más conversaciones relevantes por hora gracias a marcadores inteligentes.",
           "Mejor conversión con segmentación por perfil, historial y comportamiento.",
@@ -244,7 +244,7 @@ export const services: Service[] = [
         title: "Outbound Campaigns",
         subtitle: "Telemarketing and demand generation",
         intro:
-          "We design outbound campaigns that combine data, scripting and technology to maximize effective conversations and conversions.",
+          "Stop wasting databases, agents who don't close and calls with no traceability. Sync every result to your CRM and turn more leads into sales.",
         benefits: [
           "More relevant conversations per hour using smart dialers.",
           "Higher conversion with segmentation by profile, history and behavior.",
@@ -270,7 +270,7 @@ export const services: Service[] = [
         title: "AI Agents",
         subtitle: "Agentes virtuales inteligentes",
         intro:
-          "Implementamos agentes de IA que atienden, califican y enrutan conversaciones 24/7 por voz y chat, integrados con tus sistemas de negocio.",
+          "No pierda ventas por no contestar un domingo a las 11 PM. Un agente que nunca duerme atiende y agenda citas sin intervención humana; sus equipos dejan de hacer tareas repetitivas.",
         benefits: [
           "Disponibilidad continua sin aumentar el tamaño de tu equipo humano.",
           "Reducción de tareas repetitivas para tus agentes y equipos internos.",
@@ -289,7 +289,7 @@ export const services: Service[] = [
         title: "AI Agents",
         subtitle: "Intelligent virtual agents",
         intro:
-          "We deploy AI agents that handle, qualify and route conversations 24/7 over voice and chat, integrated with your core systems.",
+          "Stop losing sales because no one answers Sunday at 11 PM. An agent that never sleeps handles and books appointments without human intervention; your team stops doing repetitive tasks.",
         benefits: [
           "24/7 availability without growing your human team.",
           "Fewer repetitive tasks for agents and internal teams.",
@@ -315,7 +315,7 @@ export const services: Service[] = [
         title: "AI Omnichannel",
         subtitle: "Comunicación unificada con IA",
         intro:
-          "Orquestamos todos tus canales digitales —WhatsApp, SMS, email, chat web— en una sola plataforma, con automatizaciones inteligentes y trazabilidad completa.",
+          "Acabe con el caos de WhatsApp en un teléfono, correos en otro y chat web por separado. Una bandeja única: el agente ya sabe todo lo que el cliente dijo, en cualquier canal.",
         benefits: [
           "Un inbox unificado para ver el historial completo de cada cliente.",
           "Flujos automatizados para bienvenida, recordatorios, encuestas y campañas.",
@@ -334,7 +334,7 @@ export const services: Service[] = [
         title: "AI Omnichannel",
         subtitle: "Unified communication with AI",
         intro:
-          "We orchestrate all your digital channels—WhatsApp, SMS, email, web chat—on a single platform with smart automation and full traceability.",
+          "End the chaos of WhatsApp on one phone, email on another and web chat elsewhere. One inbox: the agent already knows everything the customer said, on every channel.",
         benefits: [
           "A unified inbox with a complete history for each customer.",
           "Automated flows for onboarding, reminders, surveys and campaigns.",

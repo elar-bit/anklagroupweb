@@ -7,6 +7,11 @@ const faqs: Record<ServiceId, { es: FaqItem[]; en: FaqItem[] }> = {
   "hosted-pbx": {
     es: [
       {
+        question: "¿Puedo usar mi extensión en mi celular?",
+        answer:
+          "Sí, nuestra App convierte tu smartphone en una extensión de la oficina con total seguridad. Mismo número, mismas colas y desvíos desde cualquier lugar.",
+      },
+      {
         question: "¿Tengo que cambiar mis números de teléfono actuales?",
         answer:
           "No. Realizamos la portabilidad de tus números existentes de forma transparente para que no pierdas contacto con tus clientes actuales.",
@@ -24,6 +29,11 @@ const faqs: Record<ServiceId, { es: FaqItem[]; en: FaqItem[] }> = {
     ],
     en: [
       {
+        question: "Can I use my extension on my cell phone?",
+        answer:
+          "Yes. Our app turns your smartphone into an office extension with full security. Same number, same queues and forwarding from anywhere.",
+      },
+      {
         question: "Do I have to change my current phone numbers?",
         answer:
           "No. We port your existing numbers seamlessly so you don't lose touch with your current customers.",
@@ -33,15 +43,15 @@ const faqs: Record<ServiceId, { es: FaqItem[]; en: FaqItem[] }> = {
         answer:
           "Your telephony stays live in the cloud. Calls can be automatically forwarded to mobile apps (softphones) or external cell numbers so you never miss a sale.",
       },
-      {
-        question: "Is it hard to set up if I don't have an IT person?",
-        answer:
-          'We handle everything. It\'s plug & play: connect the phone to the internet and you\'re up and running. We manage call queues and IVR for you.',
-      },
     ],
   },
   lan: {
     es: [
+      {
+        question: "¿Cómo evitan que un virus de una laptop afecte mis servidores?",
+        answer:
+          "Implementamos segmentación por VLANs para aislar el tráfico crítico del resto de la red. Invitados, cámaras y datos sensibles van en redes separadas; un virus en un equipo no alcanza sus servidores.",
+      },
       {
         question: "¿Por qué no puedo usar el router que me da mi proveedor de internet?",
         answer:
@@ -60,14 +70,14 @@ const faqs: Record<ServiceId, { es: FaqItem[]; en: FaqItem[] }> = {
     ],
     en: [
       {
+        question: "How do you prevent a virus on a laptop from affecting my servers?",
+        answer:
+          "We use VLAN segmentation to isolate critical traffic from the rest of the network. Guests, cameras and sensitive data sit on separate networks; a virus on one device cannot reach your servers.",
+      },
+      {
         question: "Why can't I use the router my internet provider gave me?",
         answer:
           "Consumer gear isn't built to handle multiple users, VoIP and security cameras at once. Our infrastructure ensures stability and prevents your network from freezing at critical times.",
-      },
-      {
-        question: "Is my current network safe from cyberattacks?",
-        answer:
-          "Without network segmentation (VLANs), a virus on one laptop could infect your servers. We harden your network by separating guest, camera and sensitive traffic.",
       },
       {
         question: "Do you support me if a switch or antenna fails?",
@@ -78,6 +88,11 @@ const faqs: Record<ServiceId, { es: FaqItem[]; en: FaqItem[] }> = {
   },
   support: {
     es: [
+      {
+        question: "¿Qué incluye el soporte preventivo?",
+        answer:
+          "Monitoreo de salud de discos, actualizaciones de seguridad automáticas y limpieza de software mensual para evitar fallos. Así reducimos paradas no planificadas y alargamos la vida de sus equipos.",
+      },
       {
         question: "¿Mi información está segura con su equipo de soporte?",
         answer:
@@ -95,6 +110,11 @@ const faqs: Record<ServiceId, { es: FaqItem[]; en: FaqItem[] }> = {
       },
     ],
     en: [
+      {
+        question: "What does preventive support include?",
+        answer:
+          "Disk health monitoring, automatic security updates and monthly software cleanup to prevent failures. This reduces unplanned downtime and extends the life of your equipment.",
+      },
       {
         question: "Is my data safe with your support team?",
         answer:
@@ -115,6 +135,11 @@ const faqs: Record<ServiceId, { es: FaqItem[]; en: FaqItem[] }> = {
   "ai-agents": {
     es: [
       {
+        question: "¿La IA puede agendar citas sola?",
+        answer:
+          "Sí, se conecta a tu calendario y reserva espacios sin intervención humana, validando disponibilidad en tiempo real. Ideal para consultas, demos o seguimientos.",
+      },
+      {
         question: "¿La IA suena \"robótica\" o molesta a los clientes?",
         answer:
           "Al contrario. Utilizamos modelos de lenguaje avanzados que entienden el contexto y responden de forma natural. Los clientes agradecen la inmediatez de una respuesta útil sobre una espera eterna con un humano.",
@@ -132,14 +157,14 @@ const faqs: Record<ServiceId, { es: FaqItem[]; en: FaqItem[] }> = {
     ],
     en: [
       {
+        question: "Can the AI schedule appointments on its own?",
+        answer:
+          "Yes. It connects to your calendar and books slots with no human intervention, checking availability in real time. Ideal for consultations, demos or follow-ups.",
+      },
+      {
         question: "Does the AI sound robotic or annoy customers?",
         answer:
           "Quite the opposite. We use advanced language models that understand context and respond naturally. Customers appreciate instant, helpful answers over long waits for a human.",
-      },
-      {
-        question: "Does it integrate with my current CRM or database?",
-        answer:
-          "Yes. Our AI agents can check inventory, order status or schedule appointments directly in your existing software via APIs.",
       },
       {
         question: "What if the AI doesn't know the answer?",
@@ -151,6 +176,11 @@ const faqs: Record<ServiceId, { es: FaqItem[]; en: FaqItem[] }> = {
   omnichannel: {
     es: [
       {
+        question: "¿El cliente tiene que repetir su historia cada vez que cambia de canal?",
+        answer:
+          "No. Nuestro sistema unifica el historial. Si escribió por WhatsApp y luego llama, el agente ya sabe todo el contexto. Una sola conversación, todos los canales.",
+      },
+      {
         question: "¿La IA suena \"robótica\" o molesta a los clientes?",
         answer:
           "Al contrario. Utilizamos modelos de lenguaje avanzados que entienden el contexto y responden de forma natural. Los clientes agradecen la inmediatez de una respuesta útil sobre una espera eterna con un humano.",
@@ -160,13 +190,13 @@ const faqs: Record<ServiceId, { es: FaqItem[]; en: FaqItem[] }> = {
         answer:
           "Sí. Nuestros agentes de IA pueden consultar inventarios, estados de pedido o agendar citas directamente en tu software actual mediante APIs.",
       },
-      {
-        question: "¿Qué pasa si la IA no sabe responder algo?",
-        answer:
-          'El sistema está diseñado para una "transferencia suave". Si la IA detecta una consulta compleja, transfiere la conversación a un agente humano con todo el historial previo.',
-      },
     ],
     en: [
+      {
+        question: "Does the customer have to repeat their story every time they switch channels?",
+        answer:
+          "No. Our system unifies history. If they messaged on WhatsApp and then call, the agent already has full context. One conversation, every channel.",
+      },
       {
         question: "Does the AI sound robotic or annoy customers?",
         answer:
@@ -177,15 +207,15 @@ const faqs: Record<ServiceId, { es: FaqItem[]; en: FaqItem[] }> = {
         answer:
           "Yes. Our AI agents can check inventory, order status or schedule appointments directly in your existing software via APIs.",
       },
-      {
-        question: "What if the AI doesn't know the answer?",
-        answer:
-          'The system is built for "warm transfer." If the AI detects a complex query, it hands off to a human agent with full conversation history.',
-      },
     ],
   },
   inbound: {
     es: [
+      {
+        question: "¿Cómo miden el éxito del servicio?",
+        answer:
+          "Entregamos reportes de NPS (Satisfacción), CSAT y Tiempo Promedio de Respuesta en tiempo real. Dashboards y auditorías semanales para que veas el rendimiento de la campaña.",
+      },
       {
         question: "¿Cómo garantizan la calidad de las llamadas?",
         answer:
@@ -204,14 +234,14 @@ const faqs: Record<ServiceId, { es: FaqItem[]; en: FaqItem[] }> = {
     ],
     en: [
       {
+        question: "How do you measure service success?",
+        answer:
+          "We deliver NPS (satisfaction), CSAT and average response time reports in real time. Dashboards and weekly audits so you see campaign performance.",
+      },
+      {
         question: "How do you guarantee call quality?",
         answer:
           "We record 100% of interactions and run weekly audits. You also get real-time dashboards to see campaign performance.",
-      },
-      {
-        question: "Can you work with my prospect database?",
-        answer:
-          "Yes. We load your databases securely into our predictive dialers to maximize talk time and comply with local privacy rules.",
       },
       {
         question: "Do you scale for peak season or demand spikes?",
@@ -222,6 +252,11 @@ const faqs: Record<ServiceId, { es: FaqItem[]; en: FaqItem[] }> = {
   },
   outbound: {
     es: [
+      {
+        question: "¿Pueden integrarse con mi CRM actual?",
+        answer:
+          "Sí, sincronizamos los resultados de cada llamada directamente con Salesforce, HubSpot o tu CRM propio. Cada contacto, nota y siguiente paso queda registrado en tiempo real.",
+      },
       {
         question: "¿Cómo garantizan la calidad de las llamadas?",
         answer:
@@ -240,14 +275,14 @@ const faqs: Record<ServiceId, { es: FaqItem[]; en: FaqItem[] }> = {
     ],
     en: [
       {
+        question: "Can you integrate with my current CRM?",
+        answer:
+          "Yes. We sync the outcome of every call directly to Salesforce, HubSpot or your own CRM. Every contact, note and next step is recorded in real time.",
+      },
+      {
         question: "How do you guarantee call quality?",
         answer:
           "We record 100% of interactions and run weekly audits. You also get real-time dashboards to see campaign performance.",
-      },
-      {
-        question: "Can you work with my prospect database?",
-        answer:
-          "Yes. We load your databases securely into our predictive dialers to maximize talk time and comply with local privacy rules.",
       },
       {
         question: "Do you comply with do-not-call and privacy regulations?",

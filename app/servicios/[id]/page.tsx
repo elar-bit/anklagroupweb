@@ -17,6 +17,7 @@ import { ServiceSolutionSection } from "@/components/service-solution-section"
 import { ServiceExpectedResults } from "@/components/service-expected-results"
 import { ServiceCtaExpertBanner } from "@/components/service-cta-expert-banner"
 import { ServiceFaqSection } from "@/components/service-faq-section"
+import { ServiceWhyAnkla } from "@/components/service-why-ankla"
 import { ServiceInteractive } from "@/components/service-interactive"
 import { StickyDemoCta } from "@/components/sticky-demo-cta"
 import type { ServiceId } from "@/lib/services"
@@ -73,7 +74,7 @@ export default function ServicePage() {
                 <div className="mt-8 flex flex-col sm:flex-row gap-3">
                   <Button asChild size="lg" className="bg-gold text-background hover:bg-gold-light">
                     <Link href="/#contacto">
-                      {isEs ? "Solicitar asesoría" : "Request consultation"}
+                      {isEs ? "Solicitar consultoría gratuita" : "Request free consultation"}
                     </Link>
                   </Button>
                   <Button asChild size="lg" variant="outline" className="border-border">
@@ -128,9 +129,15 @@ export default function ServicePage() {
       {/* Preguntas frecuentes */}
       <ServiceFaqSection serviceId={service.id} />
 
-      {/* CTA Final: Hablar con un experto */}
+      {/* Por qué ANKLA: 99.9% Uptime, Soporte 24/7 */}
+      <ServiceWhyAnkla />
+
+      {/* CTA Final: Solicitar consultoría gratuita de [Servicio] */}
       {persuasion && (
-        <ServiceCtaExpertBanner ctaExpert={persuasion.ctaExpert} />
+        <ServiceCtaExpertBanner
+          ctaExpert={persuasion.ctaExpert}
+          serviceName={locale.title}
+        />
       )}
 
       <StickyDemoCta />

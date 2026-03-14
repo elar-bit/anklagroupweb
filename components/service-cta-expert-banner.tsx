@@ -7,14 +7,19 @@ import { useLanguage } from "@/components/language-provider"
 
 type Props = {
   ctaExpert: string
+  serviceName: string
 }
 
-export function ServiceCtaExpertBanner({ ctaExpert }: Props) {
+export function ServiceCtaExpertBanner({ ctaExpert, serviceName }: Props) {
   const { lang } = useLanguage()
   const sub =
     lang === "es"
       ? "Un especialista te contactará para una evaluación sin compromiso."
       : "A specialist will contact you for a no-obligation assessment."
+  const buttonText =
+    lang === "es"
+      ? `Solicitar consultoría gratuita de ${serviceName}`
+      : `Request free consultation for ${serviceName}`
 
   return (
     <section className="py-12 sm:py-16">
@@ -30,7 +35,7 @@ export function ServiceCtaExpertBanner({ ctaExpert }: Props) {
             className="mt-6 bg-amber-500 hover:bg-amber-400 text-background font-semibold"
           >
             <Link href="/#contacto">
-              {lang === "es" ? "Ir al formulario" : "Go to form"}
+              {buttonText}
               <ArrowRight className="ml-2 h-4 w-4" />
             </Link>
           </Button>
