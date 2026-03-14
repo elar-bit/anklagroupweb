@@ -61,15 +61,26 @@ export function AiChatSimulator() {
     }
     const replyLang = conversationLang ?? detected
     const replies = replyLang === "es" ? BOT_REPLIES_ES : BOT_REPLIES_EN
-    const reply = replies[Math.min(step + 1, replies.length - 1)].replace(
+    const prompts = replyLang === "es" ? USER_PROMPTS_ES : USER_PROMPTS_EN
+    const reply1 = replies[1].replace(
       "{{num}}",
       trimmed.includes("#") ? trimmed.replace(/\D/g, "").slice(0, 4) || "4521" : "4521"
     )
+    const predictedUserMsg = prompts[1]
+    const numFromPrediction = predictedUserMsg.replace(/\D/g, "").slice(0, 4) || "4521"
+    const reply2 = replies[2].replace("{{num}}", numFromPrediction)
+
     setTimeout(() => {
-      setMessages((prev) => [...prev, { role: "bot", text: reply }])
-      setStep((s) => Math.min(s + 1, userPrompts.length))
-      setInputDisabled(true)
+      setMessages((prev) => [...prev, { role: "bot", text: reply1 }])
     }, 600)
+    setTimeout(() => {
+      setMessages((prev) => [...prev, { role: "user", text: predictedUserMsg }])
+    }, 1400)
+    setTimeout(() => {
+      setMessages((prev) => [...prev, { role: "bot", text: reply2 }])
+      setStep(2)
+      setInputDisabled(true)
+    }, 2200)
   }
 
   // Solo hacer scroll al fondo del chat cuando hay mensajes nuevos (no al cargar la página)
