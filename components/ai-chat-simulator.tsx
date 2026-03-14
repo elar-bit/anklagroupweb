@@ -20,13 +20,27 @@ const BOT_REPLIES_EN = [
 const USER_PROMPTS_ES = ["¿Dónde está mi pedido?", "Tengo el número #4521"]
 const USER_PROMPTS_EN = ["Where is my order?", "I have number #4521"]
 
+/** Detecta si el texto del usuario es mayormente en español para responder en el mismo idioma */
+function detectSpanish(text: string): boolean {
+  const t = text.trim().toLowerCase()
+  if (!t) return false
+  const spanishChars = /[áéíóúñü¿¡]/u
+  const spanishWords = /\b(hola|donde|dónde|está|mi|pedido|tengo|el|la|los|las|un|una|qué|que|cómo|como|gracias|por favor|ayuda|número|numero)\b/i
+  if (spanishChars.test(t)) return true
+  if (spanishWords.test(t)) return true
+  const wordCount = t.split(/\s+/).length
+  const commonEn = (t.match(/\b(where|my|order|have|the|what|how|thanks|please|help|number)\b/gi) || []).length
+  return commonEn / Math.max(wordCount, 1) < 0.5
+}
+
 export function AiChatSimulator() {
   const { lang } = useLanguage()
   const [messages, setMessages] = useState<{ role: "user" | "bot"; text: string }[]>([])
+  const [conversationLang, setConversationLang] = useState<"es" | "en" | null>(null)
   const [input, setInput] = useState("")
   const [step, setStep] = useState(0)
   const bottomRef = useRef<HTMLDivElement>(null)
-  const isEs = lang === "es"
+  const isEs = (conversationLang ?? lang) === "es"
 
   const botReplies = isEs ? BOT_REPLIES_ES : BOT_REPLIES_EN
   const userPrompts = isEs ? USER_PROMPTS_ES : USER_PROMPTS_EN
@@ -35,11 +49,17 @@ export function AiChatSimulator() {
 
   const sendMessage = (text: string) => {
     if (!text.trim()) return
-    setMessages((prev) => [...prev, { role: "user", text: text.trim() }])
+    const trimmed = text.trim()
+    setMessages((prev) => [...prev, { role: "user", text: trimmed }])
     setInput("")
-    const reply = botReplies[Math.min(step + 1, botReplies.length - 1)].replace(
+    if (conversationLang === null) {
+      setConversationLang(detectSpanish(trimmed) ? "es" : "en")
+    }
+    const replyLang = conversationLang ?? (detectSpanish(trimmed) ? "es" : "en")
+    const replies = replyLang === "es" ? BOT_REPLIES_ES : BOT_REPLIES_EN
+    const reply = replies[Math.min(step + 1, replies.length - 1)].replace(
       "{{num}}",
-      text.includes("#") ? text.replace(/\D/g, "").slice(0, 4) || "4521" : "4521"
+      trimmed.includes("#") ? trimmed.replace(/\D/g, "").slice(0, 4) || "4521" : "4521"
     )
     setTimeout(() => {
       setMessages((prev) => [...prev, { role: "bot", text: reply }])
