@@ -8,12 +8,12 @@ import { cn } from "@/lib/utils"
 
 const BOT_REPLIES_ES = [
   "¡Hola! Soy el asistente virtual de ANKLA. ¿En qué puedo ayudarte hoy?",
-  "Claro. Para rastrear tu pedido necesito el número de orden o tu correo. ¿Cuál tienes a mano?",
+  "Hola, gracias por escribir. Para rastrear tu pedido necesito el número de orden o tu correo. ¿Cuál tienes a mano?",
   "Perfecto. Tu pedido #{{num}} está en camino y llegará en 2-3 días hábiles. ¿Algo más?",
 ]
 const BOT_REPLIES_EN = [
   "Hi! I'm ANKLA's virtual assistant. How can I help you today?",
-  "Sure. To track your order I need the order number or your email. Which do you have?",
+  "Hi, thanks for reaching out. To track your order I need the order number or your email. Which do you have?",
   "Your order #{{num}} is on the way and will arrive in 2-3 business days. Anything else?",
 ]
 
