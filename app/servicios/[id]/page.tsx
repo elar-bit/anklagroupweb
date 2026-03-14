@@ -16,6 +16,7 @@ import { ServiceProblemSection } from "@/components/service-problem-section"
 import { ServiceSolutionSection } from "@/components/service-solution-section"
 import { ServiceExpectedResults } from "@/components/service-expected-results"
 import { ServiceCtaExpertBanner } from "@/components/service-cta-expert-banner"
+import { ServiceFaqSection } from "@/components/service-faq-section"
 import { ServiceInteractive } from "@/components/service-interactive"
 import { StickyDemoCta } from "@/components/sticky-demo-cta"
 import type { ServiceId } from "@/lib/services"
@@ -123,6 +124,9 @@ export default function ServicePage() {
       {persuasion && (
         <ServiceExpectedResults results={persuasion.expectedResults} />
       )}
+
+      {/* Preguntas frecuentes */}
+      <ServiceFaqSection serviceId={service.id} />
 
       {/* CTA Final: Hablar con un experto */}
       {persuasion && (
