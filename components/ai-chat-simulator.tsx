@@ -20,17 +20,17 @@ const BOT_REPLIES_EN = [
 const USER_PROMPTS_ES = ["¿Dónde está mi pedido?", "Tengo el número #4521"]
 const USER_PROMPTS_EN = ["Where is my order?", "I have number #4521"]
 
-/** Detecta si el texto del usuario es mayormente en español para responder en el mismo idioma */
-function detectSpanish(text: string): boolean {
+/** Detecta idioma del mensaje: solo español si hay señal clara; si no, inglés (ej. "I don't have it" → EN) */
+function detectConversationLang(text: string): "es" | "en" {
   const t = text.trim().toLowerCase()
-  if (!t) return false
+  if (!t) return "en"
   const spanishChars = /[áéíóúñü¿¡]/u
-  const spanishWords = /\b(hola|donde|dónde|está|mi|pedido|tengo|el|la|los|las|un|una|qué|que|cómo|como|gracias|por favor|ayuda|número|numero)\b/i
-  if (spanishChars.test(t)) return true
-  if (spanishWords.test(t)) return true
-  const wordCount = t.split(/\s+/).length
-  const commonEn = (t.match(/\b(where|my|order|have|the|what|how|thanks|please|help|number)\b/gi) || []).length
-  return commonEn / Math.max(wordCount, 1) < 0.5
+  const spanishWords = /\b(hola|donde|dónde|está|mi|pedido|tengo|el|la|los|las|un|una|qué|que|cómo|como|gracias|por favor|ayuda|número|numero|no tengo|no lo tengo)\b/i
+  if (spanishChars.test(t)) return "es"
+  if (spanishWords.test(t)) return "es"
+  const englishWords = /\b(i|don't|do not|have|it|my|order|where|what|how|thanks|please|help|number|the|track|email)\b/i
+  if (englishWords.test(t)) return "en"
+  return "en"
 }
 
 export function AiChatSimulator() {
@@ -52,10 +52,11 @@ export function AiChatSimulator() {
     const trimmed = text.trim()
     setMessages((prev) => [...prev, { role: "user", text: trimmed }])
     setInput("")
+    const detected = detectConversationLang(trimmed)
     if (conversationLang === null) {
-      setConversationLang(detectSpanish(trimmed) ? "es" : "en")
+      setConversationLang(detected)
     }
-    const replyLang = conversationLang ?? (detectSpanish(trimmed) ? "es" : "en")
+    const replyLang = conversationLang ?? detected
     const replies = replyLang === "es" ? BOT_REPLIES_ES : BOT_REPLIES_EN
     const reply = replies[Math.min(step + 1, replies.length - 1)].replace(
       "{{num}}",
