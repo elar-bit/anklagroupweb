@@ -102,12 +102,12 @@ export function Header() {
         showTransparent
           ? "bg-transparent border-transparent"
           : "bg-background/95 backdrop-blur-md border-border"
-      }`}
+      } ${!showTransparent ? "lg:pt-0 pt-[env(safe-area-inset-top,0px)]" : ""}`}
     >
       {/* Nav: compact on non-home or when scrolled; expanded only on home at top (desktop). Móvil: al tope solo logo default + idioma; al scroll logo scroll + idioma + menú */}
       <nav
         className={`relative mx-auto flex max-w-7xl items-center pl-6 pr-8 lg:px-8 ${
-          showTransparent ? "py-2 min-h-0 lg:min-h-[180px] lg:py-6" : "py-4"
+          showTransparent ? "py-2 min-h-0 lg:min-h-[180px] lg:py-6" : "py-4 lg:py-4 min-h-[52px] lg:min-h-0"
         }`}
       >
         {/* Left/Center: desktop = scroll logo o spacer; móvil al tope = logo default centrado; móvil al scroll = logo scroll */}
@@ -115,15 +115,16 @@ export function Header() {
           {!showTransparent ? (
             <BrandLogo variant="scroll" size="md" className="shrink-0" />
           ) : (
-            <>
-              <div className="hidden lg:block flex-1 min-w-0" aria-hidden />
-              {/* Móvil al tope: solo logo default (ankla-logo) centrado en la barra */}
-              <div className="lg:hidden flex-1 flex justify-center min-w-0">
-                <BrandLogo variant="default" size="md" align="center" />
-              </div>
-            </>
+            <div className="hidden lg:block flex-1 min-w-0" aria-hidden />
           )}
         </div>
+
+        {/* Móvil al tope: logo default centrado en toda la barra */}
+        {showTransparent && (
+          <div className="lg:hidden absolute inset-0 flex items-center justify-center pointer-events-none">
+            <BrandLogo variant="default" size="md" align="center" />
+          </div>
+        )}
 
         {/* Center: main logo (desktop, only on home at top) */}
         {showTransparent && (
@@ -152,8 +153,8 @@ export function Header() {
           )}
         </div>
 
-        {/* Right: CTA + Language + Mobile menu (hamburger solo en móvil cuando hay scroll) */}
-        <div className="flex items-center justify-end gap-3 lg:gap-4 flex-1 min-w-0">
+        {/* Right: CTA + Language + Mobile menu (hamburger solo en móvil cuando hay scroll). Móvil al tope: switch más a la izquierda (mr) */}
+        <div className="flex items-center justify-end gap-3 lg:gap-4 flex-1 min-w-0 lg:mr-0 mr-6">
           <LangSwitch />
 
           <div className="hidden lg:block">
@@ -162,9 +163,9 @@ export function Header() {
             </Button>
           </div>
 
-          {/* Móvil: barras del menú solo al hacer scroll; al tope no se muestran */}
+          {/* Móvil: barras del menú solo al hacer scroll; cerrar también con click en hamburger (trigger). Sin switch duplicado dentro. */}
           {!showTransparent && (
-          <div className="flex lg:hidden shrink-0 ml-1">
+          <div className="flex lg:hidden shrink-0 ml-1 relative z-[10000]">
             <Sheet>
               <SheetTrigger asChild>
                 <button
@@ -179,13 +180,10 @@ export function Header() {
               <SheetContent className="w-full sm:max-w-sm">
                 <SheetHeader className="pb-2">
                   <SheetTitle className="flex items-center justify-between">
-                    <BrandLogo variant={showTransparent ? "default" : "scroll"} size="sm" />
+                    <BrandLogo variant="scroll" size="sm" />
                   </SheetTitle>
                 </SheetHeader>
                 <div className="mt-6 flow-root">
-                  <div className="mb-4">
-                    <LangSwitch />
-                  </div>
                   <div className="grid gap-1">
                     {navigation.map((item) => (
                       <SheetClose asChild key={item.key}>
