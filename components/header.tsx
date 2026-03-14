@@ -117,15 +117,16 @@ export function Header() {
           {!showTransparent ? (
             <BrandLogo variant="scroll" size="md" className="shrink-0" />
           ) : (
-            <>
-              <div className="hidden lg:block flex-1 min-w-0" aria-hidden />
-              {/* Móvil al tope: logo default centrado en la barra */}
-              <div className="lg:hidden flex-1 flex justify-center min-w-0">
-                <BrandLogo variant="default" size="md" align="center" />
-              </div>
-            </>
+            <div className="hidden lg:block flex-1 min-w-0" aria-hidden />
           )}
         </div>
+
+        {/* Móvil al tope: logo justo al centro de la pantalla (absolute sobre toda la barra) */}
+        {showTransparent && (
+          <div className="lg:hidden absolute inset-0 flex items-center justify-center pointer-events-none">
+            <BrandLogo variant="default" size="md" align="center" />
+          </div>
+        )}
 
         {/* Center: main logo (desktop, only on home at top) */}
         {showTransparent && (
