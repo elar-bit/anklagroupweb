@@ -109,7 +109,7 @@ export function Header() {
       {/* Nav: compact on non-home or when scrolled; expanded only on home at top (desktop). Móvil: al tope solo logo default + idioma; al scroll logo scroll + idioma + menú */}
       <nav
         className={`relative mx-auto flex max-w-7xl items-center pl-6 pr-8 lg:px-8 ${
-          showTransparent ? "py-2 min-h-0 lg:min-h-[180px] lg:py-6" : "py-4"
+          showTransparent ? "py-2 min-h-0 lg:min-h-[180px] lg:py-6 max-lg:min-h-[8rem] max-lg:py-3" : "py-4"
         }`}
       >
         {/* Left/Center: desktop = scroll logo o spacer; móvil al tope = logo default centrado; móvil al scroll = logo scroll */}
@@ -121,9 +121,9 @@ export function Header() {
           )}
         </div>
 
-        {/* Móvil al tope: logo justo al centro de la pantalla (absolute sobre toda la barra) */}
+        {/* Móvil al tope: logo justo al centro, con espacio arriba para que no se corte */}
         {showTransparent && (
-          <div className="lg:hidden absolute inset-0 flex items-center justify-center pointer-events-none">
+          <div className="lg:hidden absolute inset-0 flex items-center justify-center pt-6 pb-2 pointer-events-none">
             <BrandLogo variant="default" size="md" align="center" />
           </div>
         )}
