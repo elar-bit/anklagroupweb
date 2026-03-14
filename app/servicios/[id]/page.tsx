@@ -19,6 +19,7 @@ import { ServiceCtaExpertBanner } from "@/components/service-cta-expert-banner"
 import { ServiceFaqSection } from "@/components/service-faq-section"
 import { ServiceWhyAnkla } from "@/components/service-why-ankla"
 import { ServiceCalculator } from "@/components/service-calculator"
+import { ServiceIndustryImpact } from "@/components/service-industry-impact"
 import { ServiceInteractive } from "@/components/service-interactive"
 import { StickyDemoCta } from "@/components/sticky-demo-cta"
 import type { ServiceId } from "@/lib/services"
@@ -135,6 +136,9 @@ export default function ServicePage() {
           </ScrollReveal>
         </div>
       </section>
+
+      {/* Impacto en tu industria */}
+      <ServiceIndustryImpact serviceId={service.id} />
 
       {/* Preguntas frecuentes */}
       <ServiceFaqSection serviceId={service.id} />
