@@ -10,26 +10,13 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: 'ANKLA Group Inc | Soluciones Tecnológicas Empresariales',
-  description: 'Proveedor líder de servicios de telefonía en la nube, redes LAN, soporte técnico, call center y soluciones de inteligencia artificial para empresas.',
+  title: 'ANKLA Group Inc | Enterprise Technology Solutions',
+  description: 'Leading provider of cloud telephony, enterprise LAN networks, managed IT support, contact center services, and AI solutions for businesses.',
   generator: 'v0.app',
   keywords: ['telefonía en la nube', 'hosted PBX', 'call center', 'AI agents', 'soporte técnico', 'redes LAN'],
   icons: {
-    icon: [
-      {
-        url: '/icon-light-32x32.png',
-        media: '(prefers-color-scheme: light)',
-      },
-      {
-        url: '/icon-dark-32x32.png',
-        media: '(prefers-color-scheme: dark)',
-      },
-      {
-        url: '/icon.svg',
-        type: 'image/svg+xml',
-      },
-    ],
-    apple: '/apple-icon.png',
+    icon: '/ankla-logo-scroll.png',
+    apple: '/ankla-logo-scroll.png',
   },
 }
 
