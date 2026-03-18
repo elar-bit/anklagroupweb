@@ -7,17 +7,17 @@ import { SectionReveal } from "@/components/section-reveal"
 const industriesEn = [
   { icon: Truck, name: "Logistics", desc: "Dispatch, tracking and customer communication on one platform." },
   { icon: ShoppingBag, name: "Retail", desc: "Stores, e‑commerce and contact centers aligned with your brand." },
+  { icon: GraduationCap, name: "Education", desc: "Inbound & outbound campaigns, queues and telephony built for student experiences." },
   { icon: HeartPulse, name: "Healthcare", desc: "Secure, compliant communications for clinics and providers." },
   { icon: Landmark, name: "Finance", desc: "Reliable telephony and support for banks and financial services." },
-  { icon: GraduationCap, name: "Education", desc: "Inbound & outbound campaigns, queues and telephony built for student experiences." },
 ]
 
 const industriesEs = [
   { icon: Truck, name: "Logística", desc: "Despacho, seguimiento y comunicación con clientes en una sola plataforma." },
   { icon: ShoppingBag, name: "Retail", desc: "Tiendas, e‑commerce y centros de contacto alineados con tu marca." },
+  { icon: GraduationCap, name: "Educación", desc: "Campañas inbound/outbound, colas y telefonía listas para experiencias de estudiantes." },
   { icon: HeartPulse, name: "Salud", desc: "Comunicaciones seguras y cumplimiento normativo para clínicas y proveedores." },
   { icon: Landmark, name: "Finanzas", desc: "Telefonía y soporte confiables para banca y servicios financieros." },
-  { icon: GraduationCap, name: "Educación", desc: "Campañas inbound/outbound, colas y telefonía listas para experiencias de estudiantes." },
 ]
 
 export function IndustriesWeServe() {
