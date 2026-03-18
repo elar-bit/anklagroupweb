@@ -15,8 +15,12 @@ export const metadata: Metadata = {
   generator: 'v0.app',
   keywords: ['telefonía en la nube', 'hosted PBX', 'call center', 'AI agents', 'soporte técnico', 'redes LAN'],
   icons: {
-    icon: '/ankla-logo-scroll.png',
-    apple: '/ankla-logo-scroll.png',
+    icon: [
+      { url: '/favicon-32x32.png?v=1', type: 'image/png', sizes: '32x32' },
+    ],
+    apple: [
+      { url: '/apple-touch-icon.png?v=1', type: 'image/png', sizes: '180x180' },
+    ],
   },
 }
 
