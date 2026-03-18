@@ -60,18 +60,18 @@ const useCases: Record<ServiceId, { es: UseCaseData; en: UseCaseData }> = {
   },
   inbound: {
     es: {
-      industryBadge: "E-commerce",
-      context: "Tienda online con alto volumen de pedidos y consultas de seguimiento, devoluciones y garantías.",
-      challenge: "Largos tiempos de espera, clientes que cuelgan y falta de métricas claras de nivel de servicio.",
-      solution: "Mesa de atención inbound 24/7 con canales unificados (voz, chat, correo) y reportes de NPS y CSAT en tiempo real.",
-      result: "Reducción del 35% en tiempo promedio de respuesta y aumento del 20% en satisfacción del cliente (NPS).",
+      industryBadge: "Educación",
+      context: "Institución educativa con múltiples programas y campañas activas de admisiones, con alto volumen de consultas por teléfono y canales digitales.",
+      challenge: "Picos de llamadas en periodos de matrícula, colas saturadas, abandono por tiempos de espera y poca trazabilidad de campañas inbound/outbound.",
+      solution: "Implementación de una mesa inbound con colas por programa, IVR por tipo de consulta, enrutamiento por horario y reporting en tiempo real; integración con telefonía en la nube para continuidad entre sedes y trabajo híbrido.",
+      result: "Disminución del abandono en cola y mejora del tiempo de respuesta; mayor conversión de leads de admisiones gracias a trazabilidad por campaña y seguimiento oportuno.",
     },
     en: {
-      industryBadge: "E-commerce",
-      context: "Online store with high order volume and inquiries about tracking, returns and warranties.",
-      challenge: "Long wait times, customers hanging up and lack of clear service-level metrics.",
-      solution: "24/7 inbound contact desk with unified channels (voice, chat, email) and real-time NPS and CSAT reporting.",
-      result: "35% reduction in average response time and 20% increase in customer satisfaction (NPS).",
+      industryBadge: "Education",
+      context: "Education institution running ongoing admissions campaigns, with high inquiry volume across phone and digital channels.",
+      challenge: "Call spikes during enrollment periods, overloaded queues, abandonment due to wait times, and limited attribution across inbound/outbound campaigns.",
+      solution: "Inbound desk with queues by program, IVR by inquiry type, schedule-based routing, and real-time reporting; integrated with cloud telephony to keep service consistent across sites and hybrid teams.",
+      result: "Lower queue abandonment and faster response times, with higher admissions lead conversion through campaign attribution and timely follow-up.",
     },
   },
   outbound: {

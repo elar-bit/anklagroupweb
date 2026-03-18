@@ -1,6 +1,6 @@
 "use client"
 
-import { Truck, ShoppingBag, HeartPulse, Landmark } from "lucide-react"
+import { Truck, ShoppingBag, HeartPulse, Landmark, GraduationCap } from "lucide-react"
 import { useLanguage } from "@/components/language-provider"
 import { SectionReveal } from "@/components/section-reveal"
 
@@ -9,6 +9,7 @@ const industriesEn = [
   { icon: ShoppingBag, name: "Retail", desc: "Stores, e‑commerce and contact centers aligned with your brand." },
   { icon: HeartPulse, name: "Healthcare", desc: "Secure, compliant communications for clinics and providers." },
   { icon: Landmark, name: "Finance", desc: "Reliable telephony and support for banks and financial services." },
+  { icon: GraduationCap, name: "Education", desc: "Inbound & outbound campaigns, queues and telephony built for student experiences." },
 ]
 
 const industriesEs = [
@@ -16,6 +17,7 @@ const industriesEs = [
   { icon: ShoppingBag, name: "Retail", desc: "Tiendas, e‑commerce y centros de contacto alineados con tu marca." },
   { icon: HeartPulse, name: "Salud", desc: "Comunicaciones seguras y cumplimiento normativo para clínicas y proveedores." },
   { icon: Landmark, name: "Finanzas", desc: "Telefonía y soporte confiables para banca y servicios financieros." },
+  { icon: GraduationCap, name: "Educación", desc: "Campañas inbound/outbound, colas y telefonía listas para experiencias de estudiantes." },
 ]
 
 export function IndustriesWeServe() {
@@ -36,12 +38,12 @@ export function IndustriesWeServe() {
           </h2>
           <p className="mt-4 text-lg text-gray-200 text-pretty">
             {lang === "es"
-              ? "Logística, retail, salud y finanzas: sabemos los requisitos de cada industria y te entregamos soluciones que encajan."
-              : "Logistics, retail, healthcare and finance: we know each industry's requirements and deliver solutions that fit."}
+              ? "Logística, retail, salud, finanzas y educación: sabemos los requisitos de cada industria y te entregamos soluciones que encajan."
+              : "Logistics, retail, healthcare, finance and education: we know each industry's requirements and deliver solutions that fit."}
           </p>
         </SectionReveal>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
           {industries.map((ind, i) => {
             const Icon = ind.icon
             return (
