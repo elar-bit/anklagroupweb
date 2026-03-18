@@ -3,7 +3,10 @@ import { Resend } from "resend"
 
 const RESEND_API_KEY = process.env.RESEND_API_KEY
 const TO_EMAIL = "info@anklagroupinc.com"
-const FROM_EMAIL = "ANKLA Web <onboarding@resend.dev>"
+// Remitente: si verificas tu dominio en Resend, define RESEND_FROM_EMAIL=contacto@anklagroupinc.com en Vercel
+const FROM_EMAIL = process.env.RESEND_FROM_EMAIL
+  ? `ANKLA Web <${process.env.RESEND_FROM_EMAIL}>`
+  : "ANKLA Web <onboarding@resend.dev>"
 
 const resend = RESEND_API_KEY ? new Resend(RESEND_API_KEY) : null
 
