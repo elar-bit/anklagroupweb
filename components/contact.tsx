@@ -58,6 +58,7 @@ const copyEn = {
   step3Title: "Details & send",
   next: "Next",
   back: "Back",
+  submitError: "Something went wrong. Please try again or email us directly.",
 }
 
 const copyEs = {
@@ -108,6 +109,7 @@ const copyEs = {
   step3Title: "Detalles y enviar",
   next: "Siguiente",
   back: "Atrás",
+  submitError: "Algo salió mal. Intenta de nuevo o escríbenos directamente.",
 }
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
@@ -120,6 +122,7 @@ export function Contact() {
   const [step, setStep] = useState(1)
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
+  const [submitError, setSubmitError] = useState<string | null>(null)
   const [challenge, setChallenge] = useState<string>("")
   const [name, setName] = useState("")
   const [email, setEmail] = useState("")
@@ -175,12 +178,34 @@ export function Contact() {
     e.preventDefault()
     setTouched((p) => ({ ...p, name: true, email: true, message: true, challenge: true }))
     if (!formValid) return
+    setSubmitError(null)
     setIsLoading(true)
-    await new Promise((resolve) => setTimeout(resolve, 1000))
-    setIsLoading(false)
-    setIsSubmitted(true)
-    setStep(1)
-    setTimeout(() => setIsSubmitted(false), 60000)
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          challenge: challenge || undefined,
+          name: name.trim(),
+          email: email.trim(),
+          company: company.trim() || undefined,
+          service: service || undefined,
+          message: message.trim(),
+        }),
+      })
+      const data = await res.json().catch(() => ({}))
+      if (!res.ok) {
+        setSubmitError(data.error || t.submitError)
+        return
+      }
+      setIsSubmitted(true)
+      setStep(1)
+      setTimeout(() => setIsSubmitted(false), 60000)
+    } catch {
+      setSubmitError(t.submitError)
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   const inputClass = useCallback(
@@ -294,6 +319,12 @@ export function Contact() {
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-6">
+                {submitError && (
+                  <div className="flex items-start gap-2 rounded-lg border border-destructive/50 bg-destructive/10 px-4 py-3 text-sm text-destructive">
+                    <AlertCircle className="h-5 w-5 shrink-0 mt-0.5" />
+                    <p>{submitError}</p>
+                  </div>
+                )}
                 {/* Stepped progress: only on narrow (mobile) */}
                 {isNarrow && (
                   <div className="space-y-2">
