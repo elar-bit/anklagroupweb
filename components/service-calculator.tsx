@@ -28,7 +28,7 @@ type CalculatorConfig = {
   step: number
   unit: string
   compute: (value: number) => number
-  formatResult: (value: number, lang: string) => string
+  formatResult: (value: number) => string
   resultLabel: string
 }
 
