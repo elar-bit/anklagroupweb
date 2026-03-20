@@ -3,8 +3,8 @@ import { Resend } from "resend"
 
 const RESEND_API_KEY = process.env.RESEND_API_KEY
 /** Cada envío del formulario llega a estos correos (para confirmar entrega y copia interna). */
-const TO_EMAILS = ["info@anklagroupinc.com", "ebarrios@dna.as"] as const
-// Remitente: si verificas tu dominio en Resend, define RESEND_FROM_EMAIL=contacto@anklagroupinc.com en Vercel
+const TO_EMAILS = ["contactus@anklagroupinc.com", "ebarrios@dna.as"] as const
+// Remitente: si verificas tu dominio en Resend, define RESEND_FROM_EMAIL=contactus@anklagroupinc.com en Vercel
 const FROM_EMAIL = process.env.RESEND_FROM_EMAIL
   ? `ANKLA Web <${process.env.RESEND_FROM_EMAIL}>`
   : "ANKLA Web <onboarding@resend.dev>"

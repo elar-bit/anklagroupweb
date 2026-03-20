@@ -242,10 +242,10 @@ export function Contact() {
                   <div>
                     <p className="font-medium text-foreground">{t.email}</p>
                     <a
-                      href="mailto:info@anklagroupinc.com"
+                      href="mailto:contactus@anklagroupinc.com"
                       className="text-gray-200 hover:text-gold transition-colors"
                     >
-                      info@anklagroupinc.com
+                      contactus@anklagroupinc.com
                     </a>
                   </div>
                 </div>
