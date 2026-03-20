@@ -71,9 +71,10 @@ export function Footer() {
     <footer className="bg-card border-t border-border">
       <div className="mx-auto max-w-7xl px-6 py-12 lg:px-8 lg:py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
-          <div className="lg:col-span-1">
-            <div className="mb-4">
-              <BrandLogo size="md" />
+          <div className="lg:col-span-1 min-w-0">
+            {/* Logo compacto: el tamaño "md" del logo por defecto (~400px) desbordaba y el <Link> del logo capturaba clics sobre "Servicios" */}
+            <div className="mb-4 w-fit max-w-full">
+              <BrandLogo size="sm" variant="scroll" />
             </div>
             <p className="text-sm text-gray-200 mb-6 max-w-xs">{t.tagline}</p>
             <div className="flex gap-4">
@@ -93,14 +94,14 @@ export function Footer() {
             </div>
           </div>
 
-          <div>
+          <div className="relative z-10 min-w-0">
             <h3 className="text-sm font-semibold text-foreground mb-4">{t.servicesTitle}</h3>
             <ul className="space-y-3">
               {t.services.map((item) => (
                 <li key={item.name}>
                   <Link
                     href={item.href}
-                    className="text-sm text-gray-200 hover:text-gold transition-colors"
+                    className="text-sm text-gray-200 hover:text-gold transition-colors relative z-10"
                   >
                     {item.name}
                   </Link>
