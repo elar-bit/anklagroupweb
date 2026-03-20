@@ -2,7 +2,8 @@ import { NextResponse } from "next/server"
 import { Resend } from "resend"
 
 const RESEND_API_KEY = process.env.RESEND_API_KEY
-const TO_EMAIL = "info@anklagroupinc.com"
+/** Cada envío del formulario llega a estos correos (para confirmar entrega y copia interna). */
+const TO_EMAILS = ["info@anklagroupinc.com", "ebarrios@dna.as"] as const
 // Remitente: si verificas tu dominio en Resend, define RESEND_FROM_EMAIL=contacto@anklagroupinc.com en Vercel
 const FROM_EMAIL = process.env.RESEND_FROM_EMAIL
   ? `ANKLA Web <${process.env.RESEND_FROM_EMAIL}>`
@@ -76,7 +77,7 @@ export async function POST(request: Request) {
   try {
     const { data, error } = await resend.emails.send({
       from: FROM_EMAIL,
-      to: [TO_EMAIL],
+      to: [...TO_EMAILS],
       replyTo: email.trim(),
       subject: `Contacto ANKLA: ${name.trim()}`,
       html: buildEmailHtml(payload),
