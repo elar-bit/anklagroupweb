@@ -2,8 +2,7 @@ import { NextResponse } from "next/server"
 import { Resend } from "resend"
 
 const RESEND_API_KEY = process.env.RESEND_API_KEY
-/** Cada envío del formulario llega a estos correos (para confirmar entrega y copia interna). */
-const TO_EMAILS = ["contactus@anklagroupinc.com", "ebarrios@dna.as"] as const
+const TO_EMAILS = ["contactus@anklagroupinc.com"] as const
 // Remitente: si verificas tu dominio en Resend, define RESEND_FROM_EMAIL=contactus@anklagroupinc.com en Vercel
 const FROM_EMAIL = process.env.RESEND_FROM_EMAIL
   ? `ANKLA Web <${process.env.RESEND_FROM_EMAIL}>`
@@ -12,6 +11,8 @@ const FROM_EMAIL = process.env.RESEND_FROM_EMAIL
 const resend = RESEND_API_KEY ? new Resend(RESEND_API_KEY) : null
 
 export type ContactPayload = {
+  /** Idioma de la UI al enviar (determina el idioma del correo). */
+  lang?: "es" | "en"
   challenge?: string
   name: string
   email: string
@@ -20,34 +21,78 @@ export type ContactPayload = {
   message: string
 }
 
+function escapeHtml(s: string): string {
+  return s
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+}
+
 function buildEmailHtml(payload: ContactPayload): string {
-  const rows = [
-    ["Nombre / Name", payload.name],
-    ["Email", payload.email],
-    ["Empresa / Company", payload.company || "—"],
-    ["Reto principal / Main challenge", payload.challenge || "—"],
-    ["Servicio de interés / Service", payload.service || "—"],
-    ["Mensaje / Message", payload.message],
+  const lang = payload.lang === "en" ? "en" : "es"
+  const dash = lang === "en" ? "—" : "—"
+  const labels =
+    lang === "en"
+      ? {
+          title: "New request from ANKLA website",
+          intro: "Contact form details:",
+          name: "Name",
+          email: "Email",
+          company: "Company",
+          challenge: "Main challenge",
+          service: "Service of interest",
+          message: "Message",
+          footer: "Sent from the website contact form.",
+        }
+      : {
+          title: "Nueva solicitud desde ANKLA Web",
+          intro: "Datos del formulario de contacto:",
+          name: "Nombre",
+          email: "Email",
+          company: "Empresa",
+          challenge: "Reto principal",
+          service: "Servicio de interés",
+          message: "Mensaje",
+          footer: "Enviado desde el formulario de contacto del sitio web.",
+        }
+
+  const rows: [string, string][] = [
+    [labels.name, payload.name],
+    [labels.email, payload.email],
+    [labels.company, payload.company?.trim() || dash],
+    [labels.challenge, payload.challenge || dash],
+    [labels.service, payload.service || dash],
+    [labels.message, payload.message],
   ]
   const body = rows
-    .map(([label, value]) => `<tr><td style="padding:8px 12px 8px 0;vertical-align:top;color:#94a3b8;">${label}</td><td style="padding:8px 0;">${String(value).replace(/\n/g, "<br>")}</td></tr>`)
+    .map(
+      ([label, value]) =>
+        `<tr><td style="padding:8px 12px 8px 0;vertical-align:top;color:#94a3b8;">${escapeHtml(label)}</td><td style="padding:8px 0;">${escapeHtml(String(value)).replace(/\n/g, "<br>")}</td></tr>`
+    )
     .join("")
   return `
 <!DOCTYPE html>
-<html>
+<html lang="${lang}">
 <head><meta charset="utf-8"></head>
 <body style="font-family:system-ui,sans-serif;color:#e2e8f0;background:#0f172a;padding:24px;margin:0;">
   <div style="max-width:560px;margin:0 auto;">
-    <h1 style="color:#fbbf24;font-size:1.25rem;margin-bottom:16px;">Nueva solicitud desde ANKLA Web</h1>
-    <p style="color:#94a3b8;margin-bottom:20px;">Datos del formulario de contacto:</p>
+    <h1 style="color:#fbbf24;font-size:1.25rem;margin-bottom:16px;">${escapeHtml(labels.title)}</h1>
+    <p style="color:#94a3b8;margin-bottom:20px;">${escapeHtml(labels.intro)}</p>
     <table style="width:100%;border-collapse:collapse;">
       ${body}
     </table>
-    <p style="color:#64748b;font-size:0.875rem;margin-top:24px;">Enviado desde el formulario de contacto del sitio web.</p>
+    <p style="color:#64748b;font-size:0.875rem;margin-top:24px;">${escapeHtml(labels.footer)}</p>
   </div>
 </body>
 </html>
   `.trim()
+}
+
+function emailSubject(payload: ContactPayload): string {
+  const lang = payload.lang === "en" ? "en" : "es"
+  const name = payload.name.trim()
+  return lang === "en" ? `ANKLA contact: ${name}` : `Contacto ANKLA: ${name}`
 }
 
 export async function POST(request: Request) {
@@ -79,7 +124,7 @@ export async function POST(request: Request) {
       from: FROM_EMAIL,
       to: [...TO_EMAILS],
       replyTo: email.trim(),
-      subject: `Contacto ANKLA: ${name.trim()}`,
+      subject: emailSubject(payload),
       html: buildEmailHtml(payload),
     })
 

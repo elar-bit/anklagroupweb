@@ -185,11 +185,15 @@ export function Contact() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          challenge: challenge || undefined,
+          lang,
+          challenge:
+            challengeOptions.find((o) => o.value === challenge)?.label ?? challenge,
           name: name.trim(),
           email: email.trim(),
           company: company.trim() || undefined,
-          service: service || undefined,
+          service: service
+            ? serviceOptions.find((o) => o.value === service)?.label ?? service
+            : undefined,
           message: message.trim(),
         }),
       })
