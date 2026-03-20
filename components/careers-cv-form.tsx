@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useRef, useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -15,7 +15,6 @@ import {
 import { useLanguage } from "@/components/language-provider"
 import { getCareersCopy, getCareersRoles, type CareerRole } from "@/lib/careers-content"
 import { CheckCircle, AlertCircle, Loader2 } from "lucide-react"
-import { cn } from "@/lib/utils"
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
@@ -33,6 +32,7 @@ export function CareersCvForm() {
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
   const [done, setDone] = useState(false)
+  const fileInputRef = useRef<HTMLInputElement>(null)
 
   const roleLabel = (() => {
     if (!roleId) return ""
@@ -111,7 +111,12 @@ export function CareersCvForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-5 rounded-2xl border border-border bg-card p-6 md:p-8">
+    <form
+      lang={lang}
+      noValidate
+      onSubmit={handleSubmit}
+      className="space-y-5 rounded-2xl border border-border bg-card p-6 md:p-8"
+    >
       {error && (
         <div className="flex items-start gap-2 rounded-lg border border-destructive/50 bg-destructive/10 px-4 py-3 text-sm text-destructive">
           <AlertCircle className="h-5 w-5 shrink-0 mt-0.5" />
@@ -127,7 +132,7 @@ export function CareersCvForm() {
             value={name}
             onChange={(e) => setName(e.target.value)}
             autoComplete="name"
-            required
+            aria-required="true"
             className="bg-background"
           />
         </div>
@@ -139,7 +144,7 @@ export function CareersCvForm() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             autoComplete="email"
-            required
+            aria-required="true"
             className="bg-background"
           />
         </div>
@@ -159,8 +164,8 @@ export function CareersCvForm() {
         </div>
         <div className="space-y-2">
           <Label>{t.formRole}</Label>
-          <Select value={roleId} onValueChange={setRoleId} required>
-            <SelectTrigger className="w-full bg-background">
+          <Select value={roleId} onValueChange={setRoleId}>
+            <SelectTrigger className="w-full bg-background" aria-required="true">
               <SelectValue placeholder={t.formRolePlaceholder} />
             </SelectTrigger>
             <SelectContent>
@@ -188,15 +193,30 @@ export function CareersCvForm() {
       </div>
 
       <div className="space-y-2">
-        <Label htmlFor="cv-file">{t.formFile}</Label>
-        <Input
-          id="cv-file"
+        <Label htmlFor="cv-file-input">{t.formFile}</Label>
+        <input
+          ref={fileInputRef}
+          id="cv-file-input"
           type="file"
           accept="application/pdf,.pdf"
-          className={cn("cursor-pointer bg-background")}
+          className="sr-only"
+          tabIndex={-1}
+          aria-label={`${t.formFile}. ${t.formFileHint}`}
           onChange={(e) => setFile(e.target.files?.[0] ?? null)}
-          required
         />
+        <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-3">
+          <Button
+            type="button"
+            variant="outline"
+            className="w-fit border-border shrink-0"
+            onClick={() => fileInputRef.current?.click()}
+          >
+            {t.formFileButton}
+          </Button>
+          <span className="text-sm text-muted-foreground truncate" title={file?.name}>
+            {file ? file.name : t.formFileEmpty}
+          </span>
+        </div>
         <p className="text-xs text-muted-foreground">{t.formFileHint}</p>
       </div>
 

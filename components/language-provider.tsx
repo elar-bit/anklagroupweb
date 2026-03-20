@@ -11,6 +11,17 @@ type LanguageContextValue = {
 
 const LanguageContext = createContext<LanguageContextValue | null>(null)
 
+/** Sincroniza `<html lang>` con el idioma de la app (mejora validación del navegador y lectores de pantalla). */
+function DocumentHtmlLang() {
+  const { lang } = useLanguage()
+  useEffect(() => {
+    if (typeof document !== "undefined") {
+      document.documentElement.lang = lang === "es" ? "es" : "en"
+    }
+  }, [lang])
+  return null
+}
+
 export function LanguageProvider({ children }: { children: React.ReactNode }) {
   const [lang, setLangState] = useState<Lang>("en")
 
@@ -33,7 +44,12 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
 
   const value = useMemo(() => ({ lang, setLang }), [lang])
 
-  return <LanguageContext.Provider value={value}>{children}</LanguageContext.Provider>
+  return (
+    <LanguageContext.Provider value={value}>
+      <DocumentHtmlLang />
+      {children}
+    </LanguageContext.Provider>
+  )
 }
 
 export function useLanguage() {
